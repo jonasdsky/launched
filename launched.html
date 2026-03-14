@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Launched — Elevating Human Potential</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #EBF2F8;
+    --surface: #ffffff;
+    --surface-hover: #f4f8fc;
+    --text: #141428;
+    --muted: #667085;
+    --accent: #D63B2A;
+    --accent-light: rgba(214,59,42,0.08);
+    --border: rgba(20,20,40,0.10);
+    --border-md: rgba(20,20,40,0.18);
+    --nav-h: 68px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    transition: box-shadow 0.2s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(20,20,40,0.06); }
+
+  .logo {
+    display: flex; align-items: center; gap: 9px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.975rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+  .logo img { flex-shrink: 0; width: 22px; height: 22px; object-fit: contain; }
+
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    border-radius: 100px;
+    padding: 0.48rem 1.15rem;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    letter-spacing: 0.01em;
+  }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border-md);
+    color: var(--text);
+  }
+  .btn-ghost:hover { background: rgba(20,20,40,0.05); }
+
+  .btn-dark {
+    background: var(--text);
+    border: 1px solid var(--text);
+    color: #fff;
+  }
+  .btn-dark:hover { background: #2a2a48; }
+
+  /* ── HERO ── */
+  #page-home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 3rem) 2rem 4rem;
+    text-align: center;
+  }
+
+  .hero-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: rise 0.6s 0.1s ease forwards;
+  }
+
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    animation: rise 0.7s 0.2s ease forwards;
+  }
+
+  .nav-grid {
+    width: 100%;
+    max-width: 660px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    opacity: 0;
+    animation: rise 0.7s 0.35s ease forwards;
+  }
+  .nav-grid .span2 { grid-column: 1 / -1; }
+
+  .nav-btn {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border-md);
+    border-radius: 100px;
+    padding: 1.1rem 2rem;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+    width: 100%;
+  }
+  .nav-btn .btn-label { font-size: 0.95rem; font-weight: 500; width: 100%; text-align: center; }
+  .nav-btn .btn-desc { font-size: 0.7rem; font-weight: 300; color: var(--muted); letter-spacing: 0.01em; width: 100%; text-align: center; }
+  .nav-btn:hover {
+    background: var(--surface);
+    border-color: rgba(20,20,40,0.28);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(20,20,40,0.09);
+  }
+  .nav-btn:active { transform: translateY(0); box-shadow: none; }
+
+  .nav-btn-live { border-color: rgba(20,20,40,0.25); }
+  .nav-btn-live .btn-label { color: var(--text); }
+
+  .nav-btn-dim {
+    opacity: 0.62;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .nav-btn-dim:hover { transform: none; box-shadow: none; background: transparent; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PAGES ── */
+  .page {
+    display: none;
+    min-height: 100vh;
+    padding-top: var(--nav-h);
+  }
+  .page.active { display: block; }
+
+  .page-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3.5rem 2.5rem 6rem;
+    animation: rise 0.38s ease;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 2.8rem;
+    transition: color 0.15s;
+  }
+  .back:hover { color: var(--text); }
+  .back svg { transition: transform 0.15s; }
+  .back:hover svg { transform: translateX(-3px); }
+
+  .page-inner h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 2.2rem;
+    line-height: 1.6;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 12px;
+    transition: box-shadow 0.18s, transform 0.18s;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(20,20,40,0.07); transform: translateY(-1px); }
+
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+    color: var(--text);
+  }
+  .card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    display: inline-block;
+    background: rgba(20,20,40,0.06);
+    color: var(--text);
+    padding: 3px 11px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+  .tag-accent {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ── STATS ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 1.8rem;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem;
+    color: var(--text);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* ── ASSESSMENT ── */
+  .progress-wrap {
+    background: rgba(20,20,40,0.08);
+    border-radius: 100px;
+    height: 5px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--text);
+    border-radius: 100px;
+    transition: width 0.5s ease;
+  }
+  .progress-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .q-block { margin-bottom: 1.8rem; }
+  .q-label {
+    font-size: 0.925rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .q-opts { display: flex; flex-direction: column; gap: 8px; }
+  .q-opt {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.72rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .q-opt:hover { background: var(--surface-hover); border-color: var(--border-md); }
+  .q-opt.sel { background: var(--text); color: #fff; border-color: var(--text); }
+
+  /* ── FORM ELEMENTS ── */
+  input[type="email"], input[type="text"] {
+    width: 100%;
+    padding: 0.88rem 1.1rem;
+    border: 1px solid var(--border-md);
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  input[type="email"]:focus, input[type="text"]:focus {
+    border-color: rgba(20,20,40,0.35);
+  }
+  input::placeholder { color: var(--muted); }
+
+  .form-stack { display: flex; flex-direction: column; gap: 10px; }
+
+  .btn-full {
+    width: 100%;
+    padding: 0.88rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+
+  /* ── CARD WITH ACTION ── */
+  .card-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .card-row .card-actions { flex-shrink: 0; margin-top: 2px; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    nav { padding: 0 1.25rem; }
+    h1 { font-size: 2.6rem; }
+    .nav-grid { max-width: 360px; }
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .page-inner { padding: 2.5rem 1.25rem 5rem; }
+    .card-row { flex-direction: column; }
+  }
+  /* ── DATABASE TABS ── */
+  .db-tab {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .db-tab:hover { background: var(--surface); color: var(--text); }
+  .db-tab-active { background: var(--surface) !important; color: var(--text) !important; box-shadow: 0 1px 4px rgba(20,20,40,0.08); font-weight: 500; }
+
+  /* ── MODAL ── */
+  #modal-apply textarea { display:block; }
+
+  /* ── QUICK FILTER PILLS ── */
+  .qf-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    padding: 0.28rem 0.8rem;
+    border-radius: 100px;
+    border: 1px solid var(--border-md);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .qf-btn:hover { background: var(--surface-hover); color: var(--text); }
+  .qf-btn.qf-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── FILTER BUTTONS ── */
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    padding: 0.38rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border-md);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { background: var(--surface); color: var(--text); border-color: var(--border-md); }
+  .filter-btn.filter-active { background: var(--text); color: #fff; border-color: var(--text); }
+
+  /* ── INTERVIEW GRID ── */
+  .interview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .interview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.18s, transform 0.18s;
+  }
+  .interview-card:hover { box-shadow: 0 6px 24px rgba(20,20,40,0.09); transform: translateY(-2px); }
+  .ic-thumb {
+    height: 110px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d50 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ic-thumb-2 { background: linear-gradient(135deg, #1e3a5f 0%, #2d5986 100%); }
+  .ic-thumb-3 { background: linear-gradient(135deg, #1a2e1a 0%, #2d502d 100%); }
+  .ic-thumb-4 { background: linear-gradient(135deg, #3a1a1a 0%, #5e2d2d 100%); }
+  .ic-thumb-5 { background: linear-gradient(135deg, #2e1a3a 0%, #4d2d60 100%); }
+  .ic-thumb-6 { background: linear-gradient(135deg, #1a2e3a 0%, #2d4d5e 100%); }
+  .ic-play {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .ic-play:hover { background: rgba(255,255,255,0.25); }
+  .ic-badge {
+    position: absolute; top: 10px; left: 12px;
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9);
+    padding: 3px 8px; border-radius: 100px;
+  }
+  .ic-body { padding: 1rem 1.1rem; }
+  .ic-title { font-size: 0.92rem; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+  .ic-meta { font-size: 0.75rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.9rem; }
+  .ic-footer { display: flex; align-items: center; justify-content: space-between; }
+  .ic-level {
+    font-size: 0.7rem; font-weight: 400; color: var(--muted);
+    background: rgba(20,20,40,0.06); padding: 3px 9px; border-radius: 100px;
+  }
+
+  /* ── DATABASE TABLE ── */
+  .db-table { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .db-header {
+    display: grid;
+    grid-template-columns: 2.2fr 1.1fr 1.2fr 1fr 0.8fr 80px;
+    padding: 0.65rem 1.2rem;
+    background: rgba(20,20,40,0.03);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    gap: 12px;
+  }
+  .db-row {
+    display: grid;
+    grid-template-columns: 2.2fr 1.1fr 1.2fr 1fr 0.8fr 80px;
+    padding: 0.85rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text);
+    transition: background 0.12s;
+  }
+  .db-row:last-child { border-bottom: none; }
+  .db-row:hover { background: rgba(20,20,40,0.02); }
+  .db-role { display: flex; flex-direction: column; gap: 2px; font-weight: 500; font-size: 0.875rem; }
+  .db-dept { font-size: 0.72rem; font-weight: 300; color: var(--muted); }
+  .db-co { display: flex; align-items: center; gap: 7px; font-size: 0.85rem; }
+  .db-co-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .db-loc { font-size: 0.82rem; color: var(--muted); }
+  .db-comp { font-size: 0.82rem; font-weight: 400; }
+  .co-row .db-role { flex-direction: row; align-items: center; gap: 8px; }
+  .co-row .db-dept { margin-left: 0; display: block; }
+  .co-row .db-role { flex-direction: column; align-items: flex-start; }
+
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="logo" href="#" onclick="showHome(); return false;">
+    <img src="data:image/png;base64,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" alt="Launched logo" />
+    Launched
+  </a>
+  <div class="nav-right">
+    <button class="btn btn-ghost" onclick="show('login')">Login</button>
+    <button class="btn btn-dark" onclick="show('join')">Join Launched</button>
+  </div>
+</nav>
+
+<!-- ════════════════════ HOME ════════════════════ -->
+<div id="page-home">
+  <div class="hero-label">Platform</div>
+  <h1>Elevating Human<br><em>Potential</em></h1>
+  <p style="max-width:640px; font-family:'Inter',sans-serif; font-size:1.05rem; font-weight:300; color:var(--muted); line-height:1.85; margin-bottom:2rem; opacity:0; animation:rise 0.7s 0.3s ease forwards; letter-spacing:-0.01em;">Understand your strengths and alignment. Get matched with the right career, path and opportunity. Access the world's best opportunities, companies, data and insights — and grow with world&#8209;class products and services.</p>
+  <div style="width:100%; max-width:660px; display:flex; justify-content:center; opacity:0; animation:rise 0.7s 0.4s ease forwards; margin-bottom:2.5rem;">
+    <button class="btn btn-dark" style="padding:0.65rem 1.6rem; font-size:0.95rem;" onclick="show('join')">Join Launched</button>
+  </div>
+  <div style="width:100%; max-width:660px; border-top:1px solid var(--border-md); margin-bottom:2.5rem; opacity:0; animation:rise 0.7s 0.45s ease forwards;"></div>
+  <div class="nav-grid">
+    <div class="span2">
+      <button class="nav-btn nav-btn-live" style="width:100%;" onclick="show('assessment')">
+        <span class="btn-label">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:middle;flex-shrink:0;"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke="#D63B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Assessment
+        </span>
+        <span class="btn-desc">Discover your strengths, skills and ideal career path</span>
+      </button>
+    </div>
+    <button class="nav-btn nav-btn-live" onclick="showDatabase('opportunities')">
+      <span class="btn-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:middle;flex-shrink:0;"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="#D63B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Opportunities
+      </span>
+      <span class="btn-desc">Curated roles matched to your profile and ambition</span>
+    </button>
+    <button class="nav-btn nav-btn-live" onclick="showDatabase('companies')">
+      <span class="btn-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="margin-right:5px;vertical-align:middle;flex-shrink:0;"><path d="M3 21h18M3 7l9-4 9 4M4 7v14M20 7v14M8 21v-4a4 4 0 018 0v4M8 11h.01M12 11h.01M16 11h.01M8 15h.01M16 15h.01" stroke="#D63B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Companies
+      </span>
+      <span class="btn-desc">Explore 480+ world-class companies actively hiring</span>
+    </button>
+    <button class="nav-btn nav-btn-dim" disabled>
+      <span class="btn-label">Data and Insights</span>
+      <span class="btn-desc">Real compensation data, hiring trends and market intelligence</span>
+    </button>
+    <button class="nav-btn nav-btn-dim" disabled>
+      <span class="btn-label">Immigration</span>
+      <span class="btn-desc">Visa guides and relocation support for global talent</span>
+    </button>
+    <button class="nav-btn nav-btn-dim" disabled>
+      <span class="btn-label">Hiring</span>
+      <span class="btn-desc">Connect with exceptional vetted talent, fast</span>
+    </button>
+    <button class="nav-btn nav-btn-dim" disabled>
+      <span class="btn-label">Newsletter</span>
+      <span class="btn-desc">Weekly insights on careers, hiring and opportunity</span>
+    </button>
+  </div>
+
+  <div style="width:100%; max-width:660px; border-top:1px solid var(--border-md); margin-top:2.5rem; margin-bottom:3.5rem; opacity:0; animation:rise 0.7s 0.6s ease forwards;"></div>
+
+  <div style="width:100%; max-width:720px; text-align:left; opacity:0; animation:rise 0.7s 0.7s ease forwards; padding-bottom:5rem;">
+    <p style="font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:1.5rem;">A Founder Manifesto</p>
+
+    <p style="font-family:'DM Serif Display',serif; font-size:1.5rem; font-weight:400; line-height:1.4; color:var(--text); margin-bottom:2rem;">We believe human potential is being wasted.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">Not because people lack ambition, but because the systems meant to help people learn, work, and grow are slow, fragmented, and outdated. The way people discover opportunities, build skills, and move through their careers has failed to keep pace with the world we're living in.</p>
+
+    <p style="font-family:'DM Serif Display',serif; font-size:1.15rem; font-style:italic; color:var(--text); margin-bottom:1.4rem;">Launched exists to change that.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">Our purpose is to elevate human potential — to help people live epic lives and reach their full capacity. We do this by creating access: access to meaningful work, access to the right skills, and access to opportunities that compound over time. Work should not be accidental. Careers should not be opaque. Talent should not be invisible.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">Today, there is a widening gap between what the economy demands and what the workforce can offer. Skills evolve faster than education. Talent moves slower than opportunity. Recruiting is tedious, inefficient, and broken at its core; built on outdated incentives, shallow signals, and fragmented data.</p>
+
+    <p style="font-family:'DM Serif Display',serif; font-size:1.15rem; font-style:italic; color:var(--text); margin-bottom:1.4rem;">We're starting where the problem is loudest.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">Launched begins by fixing human capital movement: how people are found, evaluated, and connected. We're building locally in New York City, focused on high-potential GTM and Engineering talent, connecting exceptional individuals with exceptional companies, in top critical industries: AI, healthcare, education, manufacturing, defense, staffing, and energy. We believe the best networks are built city by city, trust by trust, relationship by relationship.</p>
+
+    <p style="font-family:'DM Serif Display',serif; font-size:1.15rem; font-style:italic; color:var(--text); margin-bottom:1.4rem;">This is not a job board. It's not an agency dressed up as software.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">It's a products and services studio, powered by technology, designed to build the future of hiring.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">In the medium term, Launched becomes a services company powered by proprietary technology. Tools that tackle the hardest problems in hiring: sourcing real talent, understanding true skill sets, and engaging people in ways that respect their time and ambition. We build these products first for ourselves, then offer them to the market. Everything we do is powered by community, technology, and incentives — giving people real ownership in the ecosystem they help build.</p>
+
+    <p style="font-family:'DM Serif Display',serif; font-size:1.15rem; font-style:italic; color:var(--text); margin-bottom:1.4rem;">Long term, we go further.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">The future of work demands a new model of education — one not bound by time, tuition, or tradition. Launched will create a modern learning experience for the careers of the future, tailored for high-impact, high-earning roles that traditional universities no longer serve. Practical. Adaptive. Aligned with real market demand.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:1.4rem;">At our core, we are building the infrastructure for human capital — mapping talent across markets, understanding skill sets with precision, and using technology and AI to unlock opportunity at scale.</p>
+
+    <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300; line-height:1.9; color:var(--muted); margin-bottom:2rem;">Our vision is bold: to impact billions of lives by reshaping how people learn, work, and grow. We believe talent is the most valuable resource in the world — and when given the right tools, incentives, and opportunities, people don't just find jobs.</p>
+
+    <p style="font-family:'DM Serif Display',serif; font-size:1.5rem; font-weight:400; color:var(--text); margin-bottom:2.5rem;">They build epic lives.</p>
+
+    <div style="border-top:1px solid var(--border); padding-top:1.5rem;">
+      <p style="font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:500; color:var(--text); margin-bottom:2px;">Jonas Dobransky</p>
+      <p style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:300; color:var(--muted); letter-spacing:0.03em;">Founder &amp; CEO, Launched</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════ ASSESSMENT ════════════════════ -->
+<div id="page-assessment" class="page">
+  <div class="page-inner" style="max-width:860px;">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h2>AI Video Interviews</h2>
+    <p class="page-sub">Select a role below to begin your AI-powered video interview. Each session takes 15–25 minutes and generates a detailed skills and alignment report.</p>
+
+    <div style="display:flex; gap:10px; margin-bottom:1.8rem; flex-wrap:wrap;">
+      <button class="filter-btn filter-active" onclick="filterRole(this,'all')">All Roles</button>
+      <button class="filter-btn" onclick="filterRole(this,'gtm')">GTM</button>
+      <button class="filter-btn" onclick="filterRole(this,'engineering')">Engineering</button>
+      <button class="filter-btn" onclick="filterRole(this,'leadership')">Leadership</button>
+      <button class="filter-btn" onclick="filterRole(this,'marketing')">Marketing</button>
+    </div>
+
+    <div class="interview-grid">
+
+      <div class="interview-card" data-cat="gtm">
+        <div class="ic-thumb">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">GTM</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Account Executive</div>
+          <div class="ic-meta">25 min · 8 questions · Sales methodology, discovery, closing</div>
+          <div class="ic-footer">
+            <span class="ic-level">Mid–Senior</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="gtm">
+        <div class="ic-thumb ic-thumb-2">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">GTM</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Sales Director</div>
+          <div class="ic-meta">25 min · 9 questions · Team leadership, pipeline strategy, revenue ops</div>
+          <div class="ic-footer">
+            <span class="ic-level">Senior</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="leadership">
+        <div class="ic-thumb ic-thumb-3">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Leadership</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Product Manager</div>
+          <div class="ic-meta">20 min · 8 questions · Roadmapping, prioritisation, cross-functional leadership</div>
+          <div class="ic-footer">
+            <span class="ic-level">Mid–Senior</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="marketing">
+        <div class="ic-thumb ic-thumb-4">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Marketing</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Demand Generation</div>
+          <div class="ic-meta">20 min · 7 questions · Campaigns, pipeline attribution, ABM strategy</div>
+          <div class="ic-footer">
+            <span class="ic-level">Mid–Senior</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="gtm">
+        <div class="ic-thumb ic-thumb-5">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">GTM</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">SDR / BDR</div>
+          <div class="ic-meta">15 min · 6 questions · Outbound prospecting, cold outreach, objection handling</div>
+          <div class="ic-footer">
+            <span class="ic-level">Entry–Mid</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="engineering">
+        <div class="ic-thumb ic-thumb-6">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Engineering</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Software Engineer</div>
+          <div class="ic-meta">25 min · 9 questions · System design, problem solving, technical depth</div>
+          <div class="ic-footer">
+            <span class="ic-level">Mid–Senior</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="leadership">
+        <div class="ic-thumb ic-thumb-3">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Leadership</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Chief of Staff</div>
+          <div class="ic-meta">20 min · 8 questions · Executive support, strategic ops, stakeholder management</div>
+          <div class="ic-footer">
+            <span class="ic-level">Senior</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="marketing">
+        <div class="ic-thumb ic-thumb-4">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Marketing</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Growth Marketing Manager</div>
+          <div class="ic-meta">20 min · 7 questions · Acquisition channels, experimentation, analytics</div>
+          <div class="ic-footer">
+            <span class="ic-level">Mid</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="engineering">
+        <div class="ic-thumb ic-thumb-6">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Engineering</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Engineering Manager</div>
+          <div class="ic-meta">25 min · 9 questions · Team building, technical direction, delivery</div>
+          <div class="ic-footer">
+            <span class="ic-level">Senior</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="gtm">
+        <div class="ic-thumb ic-thumb-2">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">GTM</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Customer Success Manager</div>
+          <div class="ic-meta">20 min · 7 questions · Onboarding, retention, upsell, NPS</div>
+          <div class="ic-footer">
+            <span class="ic-level">Mid</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="leadership">
+        <div class="ic-thumb ic-thumb-5">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Leadership</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">VP of Sales</div>
+          <div class="ic-meta">25 min · 9 questions · Go-to-market strategy, quota design, hiring</div>
+          <div class="ic-footer">
+            <span class="ic-level">Executive</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="interview-card" data-cat="marketing">
+        <div class="ic-thumb ic-thumb-1">
+          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+          <div class="ic-badge">Marketing</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-title">Content Marketing Manager</div>
+          <div class="ic-meta">15 min · 6 questions · Content strategy, SEO, editorial planning</div>
+          <div class="ic-footer">
+            <span class="ic-level">Mid</span>
+            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ DATABASE ════════════════════ -->
+<div id="page-database" class="page">
+  <div class="page-inner" style="max-width:1100px;">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+
+    <!-- Tab bar -->
+    <div style="display:flex;gap:4px;background:rgba(20,20,40,0.05);border-radius:12px;padding:4px;width:fit-content;margin-bottom:2rem;">
+      <button id="tab-opportunities" class="db-tab db-tab-active" onclick="switchTab('opportunities')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:5px;"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Opportunities
+      </button>
+      <button id="tab-companies" class="db-tab" onclick="switchTab('companies')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:5px;"><path d="M3 21h18M3 7l9-4 9 4M4 7v14M20 7v14M8 21v-4a4 4 0 018 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Companies
+      </button>
+      <button id="tab-funding" class="db-tab" onclick="switchTab('funding')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:5px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Funding
+      </button>
+      <button id="tab-compensation" class="db-tab" onclick="switchTab('compensation')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:5px;"><path d="M3 3v18h18M18 9l-5 5-4-4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Compensation
+      </button>
+    </div>
+
+    <!-- ── OPPORTUNITIES TAB ── -->
+    <div id="panel-opportunities">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
+        <div>
+          <h2 style="margin-bottom:0.3rem;">Opportunities</h2>
+          <p class="page-sub" style="margin-bottom:0;">Curated roles matched to your strengths — updated weekly.</p>
+        </div>
+        <button class="btn btn-dark" style="font-size:0.85rem;padding:0.55rem 1.2rem;white-space:nowrap;margin-top:0.5rem;">+ Post a Role</button>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.2rem;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:0.9rem;">
+          <div style="position:relative;flex:1;min-width:200px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;"><circle cx="11" cy="11" r="8" stroke="#667085" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="#667085" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="opp-search" type="text" placeholder="Search roles, companies, skills…" oninput="renderOpps()" style="width:100%;padding:0.55rem 1rem 0.55rem 2.2rem;font-size:0.875rem;border-radius:100px;border:1px solid var(--border-md);">
+          </div>
+          <select id="opp-dept" onchange="renderOpps()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="">All Departments</option>
+            <option>GTM</option><option>Engineering</option><option>Leadership</option>
+            <option>Marketing</option><option>Product</option><option>Operations</option>
+          </select>
+          <select id="opp-loc" onchange="renderOpps()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="">All Locations</option>
+            <option>New York, NY</option><option>San Francisco, CA</option>
+            <option>Remote</option><option>Boston, MA</option><option>Austin, TX</option>
+          </select>
+          <select id="opp-type" onchange="renderOpps()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="">All Types</option>
+            <option>Remote</option><option>Hybrid</option><option>On-site</option>
+          </select>
+          <select id="opp-sort" onchange="renderOpps()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="recent">Most Recent</option>
+            <option value="comp-hi">Comp: High → Low</option>
+            <option value="comp-lo">Comp: Low → High</option>
+            <option value="alpha">A → Z</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:0.75rem;color:var(--muted);margin-right:4px;">Quick filters:</span>
+          <button class="qf-btn" onclick="toggleQF(this,'$200k+')" data-filter="$200k+">$200k+</button>
+          <button class="qf-btn" onclick="toggleQF(this,'$300k+')" data-filter="$300k+">$300k+</button>
+          <button class="qf-btn" onclick="toggleQF(this,'Senior')" data-filter="Senior">Senior</button>
+          <button class="qf-btn" onclick="toggleQF(this,'Executive')" data-filter="Executive">Executive</button>
+          <button class="qf-btn" onclick="toggleQF(this,'Startup')" data-filter="Startup">Startup</button>
+          <button class="qf-btn" onclick="toggleQF(this,'AI')" data-filter="AI">AI</button>
+          <button class="qf-btn" onclick="toggleQF(this,'Fintech')" data-filter="Fintech">Fintech</button>
+          <button class="qf-btn" onclick="toggleQF(this,'Healthcare')" data-filter="Healthcare">Healthcare</button>
+          <button style="font-size:0.75rem;color:var(--muted);background:none;border:none;cursor:pointer;margin-left:4px;text-decoration:underline;" onclick="clearOppFilters()">Clear all</button>
+        </div>
+      </div>
+      <span id="opp-count" style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.7rem;"></span>
+      <div class="db-table">
+        <div class="db-header" style="grid-template-columns:2.4fr 1.2fr 1.3fr 1.1fr 0.7fr 0.7fr 90px;">
+          <span style="cursor:pointer;" onclick="setSortOpp('alpha')">Role</span>
+          <span>Company</span><span>Location</span>
+          <span style="cursor:pointer;" onclick="setSortOpp('comp-hi')">Compensation ↕</span>
+          <span>Type</span><span>Level</span><span></span>
+        </div>
+        <div id="opp-rows"></div>
+      </div>
+      <div id="opp-empty" style="display:none;text-align:center;padding:3rem 1rem;color:var(--muted);font-size:0.9rem;">No roles match your filters. <button onclick="clearOppFilters()" style="color:var(--accent);background:none;border:none;cursor:pointer;text-decoration:underline;">Clear filters</button></div>
+    </div>
+
+    <!-- ── COMPANIES TAB ── -->
+    <div id="panel-companies" style="display:none;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
+        <div>
+          <h2 style="margin-bottom:0.3rem;">Companies</h2>
+          <p class="page-sub" style="margin-bottom:0;">480+ world-class companies actively hiring from the Launched network.</p>
+        </div>
+        <div class="stats" style="margin:0;gap:8px;">
+          <div class="stat" style="padding:0.6rem 1rem;"><span class="stat-num" style="font-size:1.4rem;">480+</span><span class="stat-label">Partners</span></div>
+          <div class="stat" style="padding:0.6rem 1rem;"><span class="stat-num" style="font-size:1.4rem;">92%</span><span class="stat-label">Retention</span></div>
+          <div class="stat" style="padding:0.6rem 1rem;"><span class="stat-num" style="font-size:1.4rem;">38</span><span class="stat-label">Countries</span></div>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.2rem;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:0.9rem;">
+          <div style="position:relative;flex:1;min-width:200px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;"><circle cx="11" cy="11" r="8" stroke="#667085" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="#667085" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="co-search" type="text" placeholder="Search companies, industry, location…" oninput="renderCos()" style="width:100%;padding:0.55rem 1rem 0.55rem 2.2rem;font-size:0.875rem;border-radius:100px;border:1px solid var(--border-md);">
+          </div>
+          <select id="co-industry" onchange="renderCos()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="">All Industries</option>
+            <option>AI / ML</option><option>Fintech</option><option>Dev Tools</option>
+            <option>Healthcare</option><option>Enterprise</option><option>Defense</option><option>Education</option>
+          </select>
+          <select id="co-stage" onchange="renderCos()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="">All Stages</option>
+            <option>Series A</option><option>Series B</option><option>Series C</option>
+            <option>Series D</option><option>Series E+</option><option>Public</option>
+          </select>
+          <select id="co-size" onchange="renderCos()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="">All Sizes</option>
+            <option>1–50</option><option>50–250</option><option>250–1k</option><option>1k–5k</option><option>5k+</option>
+          </select>
+          <select id="co-sort" onchange="renderCos()" style="padding:0.55rem 1rem;font-size:0.85rem;border-radius:100px;border:1px solid var(--border-md);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;">
+            <option value="roles">Most Open Roles</option>
+            <option value="alpha">A → Z</option><option value="stage">Stage</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:0.75rem;color:var(--muted);margin-right:4px;">Quick filters:</span>
+          <button class="qf-btn" onclick="toggleQFCo(this,'Hiring Now')" data-filter="Hiring Now">Hiring Now</button>
+          <button class="qf-btn" onclick="toggleQFCo(this,'Remote-friendly')" data-filter="Remote-friendly">Remote-friendly</button>
+          <button class="qf-btn" onclick="toggleQFCo(this,'NYC')" data-filter="NYC">NYC</button>
+          <button class="qf-btn" onclick="toggleQFCo(this,'SF')" data-filter="SF">SF</button>
+          <button class="qf-btn" onclick="toggleQFCo(this,'High Growth')" data-filter="High Growth">High Growth</button>
+          <button class="qf-btn" onclick="toggleQFCo(this,'Unicorn')" data-filter="Unicorn">Unicorn</button>
+          <button style="font-size:0.75rem;color:var(--muted);background:none;border:none;cursor:pointer;margin-left:4px;text-decoration:underline;" onclick="clearCoFilters()">Clear all</button>
+        </div>
+      </div>
+      <span id="co-count" style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.7rem;"></span>
+      <div class="db-table">
+        <div class="db-header" style="grid-template-columns:2fr 1.1fr 1fr 0.8fr 0.9fr 1fr 90px;">
+          <span style="cursor:pointer;" onclick="setSortCo('alpha')">Company</span>
+          <span>Industry</span><span>Stage</span><span>Size</span><span>HQ</span>
+          <span style="cursor:pointer;" onclick="setSortCo('roles')">Open Roles ↕</span><span></span>
+        </div>
+        <div id="co-rows"></div>
+      </div>
+      <div id="co-empty" style="display:none;text-align:center;padding:3rem 1rem;color:var(--muted);font-size:0.9rem;">No companies match your filters. <button onclick="clearCoFilters()" style="color:var(--accent);background:none;border:none;cursor:pointer;text-decoration:underline;">Clear filters</button></div>
+    </div>
+
+    <!-- ── FUNDING TAB ── -->
+    <div id="panel-funding" style="display:none;">
+      <div style="margin-bottom:1.5rem;">
+        <h2 style="margin-bottom:0.3rem;">Funding Intelligence</h2>
+        <p class="page-sub" style="margin-bottom:0;">Recent funding rounds across the Launched company network.</p>
+      </div>
+      <div class="stats" style="margin-bottom:1.8rem;">
+        <div class="stat"><span class="stat-num">$42B+</span><span class="stat-label">Total raised</span></div>
+        <div class="stat"><span class="stat-num">38</span><span class="stat-label">Rounds tracked</span></div>
+        <div class="stat"><span class="stat-num">Q1 2025</span><span class="stat-label">Last updated</span></div>
+      </div>
+      <div class="db-table">
+        <div class="db-header" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span>Company</span><span>Round</span><span>Amount</span><span>Lead Investor</span><span>Date</span><span>Valuation</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#10b981;"></span>Anthropic<span class="db-dept">AI Safety</span></span>
+          <span><span class="tag">Series E</span></span><span class="db-comp">$750M</span><span class="db-loc">Google</span><span class="db-loc">Mar 2024</span><span class="db-comp">$18.4B</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#10b981;"></span>OpenAI<span class="db-dept">AI Research</span></span>
+          <span><span class="tag">Series F</span></span><span class="db-comp">$6.6B</span><span class="db-loc">Thrive Capital</span><span class="db-loc">Oct 2024</span><span class="db-comp">$157B</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#14b8a6;"></span>Ramp<span class="db-dept">Finance Automation</span></span>
+          <span><span class="tag">Series D</span></span><span class="db-comp">$300M</span><span class="db-loc">Thrive Capital</span><span class="db-loc">Aug 2023</span><span class="db-comp">$5.8B</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#f97316;"></span>Rippling<span class="db-dept">HR & IT</span></span>
+          <span><span class="tag">Series F</span></span><span class="db-comp">$200M</span><span class="db-loc">Coatue</span><span class="db-loc">Apr 2024</span><span class="db-comp">$13.5B</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#f97316;"></span>Scale AI<span class="db-dept">Data Labeling</span></span>
+          <span><span class="tag">Series F</span></span><span class="db-comp">$1B</span><span class="db-loc">Accel</span><span class="db-loc">May 2024</span><span class="db-comp">$13.8B</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#8b5cf6;"></span>Cohere<span class="db-dept">Enterprise AI</span></span>
+          <span><span class="tag">Series C</span></span><span class="db-comp">$500M</span><span class="db-loc">PSP Investments</span><span class="db-loc">Jul 2024</span><span class="db-comp">$5B</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#6366f1;"></span>Brex<span class="db-dept">Corporate Cards</span></span>
+          <span><span class="tag">Series D</span></span><span class="db-comp">$300M</span><span class="db-loc">TCV</span><span class="db-loc">Jan 2022</span><span class="db-comp">$12.3B</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1.2fr;">
+          <span class="db-role"><span class="db-co-dot" style="background:#8b5cf6;"></span>Vercel<span class="db-dept">Frontend Cloud</span></span>
+          <span><span class="tag">Series C</span></span><span class="db-comp">$150M</span><span class="db-loc">GV</span><span class="db-loc">Nov 2021</span><span class="db-comp">$2.5B</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPENSATION TAB ── -->
+    <div id="panel-compensation" style="display:none;">
+      <div style="margin-bottom:1.5rem;">
+        <h2 style="margin-bottom:0.3rem;">Compensation Data</h2>
+        <p class="page-sub" style="margin-bottom:0;">Aggregated from 12,000+ professionals. Updated quarterly.</p>
+      </div>
+      <div class="stats" style="margin-bottom:1.8rem;">
+        <div class="stat"><span class="stat-num">$178k</span><span class="stat-label">Median TC</span></div>
+        <div class="stat"><span class="stat-num">+14%</span><span class="stat-label">YoY growth</span></div>
+        <div class="stat"><span class="stat-num">12k+</span><span class="stat-label">Data points</span></div>
+      </div>
+      <div class="db-table">
+        <div class="db-header" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span>Role</span><span>Level</span><span>Base</span><span>Bonus</span><span>Equity</span><span>Total TC</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">Software Engineer<span class="db-dept">Engineering</span></span>
+          <span class="db-loc">Senior (L5)</span><span class="db-comp">$175k</span><span class="db-comp">$25k</span><span class="db-comp">$80k/yr</span><span style="font-weight:500;color:var(--text);">$280k</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">Engineering Manager<span class="db-dept">Engineering</span></span>
+          <span class="db-loc">Senior (L6)</span><span class="db-comp">$210k</span><span class="db-comp">$40k</span><span class="db-comp">$120k/yr</span><span style="font-weight:500;color:var(--text);">$370k</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">Account Executive<span class="db-dept">GTM</span></span>
+          <span class="db-loc">Mid</span><span class="db-comp">$90k</span><span class="db-comp">$90k OTE</span><span class="db-comp">$20k/yr</span><span style="font-weight:500;color:var(--text);">$200k</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">Product Manager<span class="db-dept">Product</span></span>
+          <span class="db-loc">Senior</span><span class="db-comp">$160k</span><span class="db-comp">$30k</span><span class="db-comp">$60k/yr</span><span style="font-weight:500;color:var(--text);">$250k</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">VP of Sales<span class="db-dept">GTM</span></span>
+          <span class="db-loc">Executive</span><span class="db-comp">$200k</span><span class="db-comp">$200k OTE</span><span class="db-comp">$200k/yr</span><span style="font-weight:500;color:var(--text);">$600k</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">Chief of Staff<span class="db-dept">Operations</span></span>
+          <span class="db-loc">Senior</span><span class="db-comp">$150k</span><span class="db-comp">$30k</span><span class="db-comp">$40k/yr</span><span style="font-weight:500;color:var(--text);">$220k</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">Demand Generation Mgr<span class="db-dept">Marketing</span></span>
+          <span class="db-loc">Mid</span><span class="db-comp">$120k</span><span class="db-comp">$20k</span><span class="db-comp">$25k/yr</span><span style="font-weight:500;color:var(--text);">$165k</span>
+        </div>
+        <div class="db-row" style="grid-template-columns:1.8fr 1fr 1fr 1fr 1fr 1fr;">
+          <span class="db-role">Staff ML Engineer<span class="db-dept">Engineering</span></span>
+          <span class="db-loc">Staff (L6)</span><span class="db-comp">$220k</span><span class="db-comp">$50k</span><span class="db-comp">$150k/yr</span><span style="font-weight:500;color:var(--text);">$420k</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════ DATA ════════════════════ -->
+<div id="page-data" class="page">
+  <div class="page-inner">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h2>Data and Insights</h2>
+    <p class="page-sub">Real compensation and hiring data from 12,000+ professionals. Updated quarterly.</p>
+
+    <div class="stats">
+      <div class="stat"><span class="stat-num">$178k</span><span class="stat-label">Median TC</span></div>
+      <div class="stat"><span class="stat-num">+14%</span><span class="stat-label">YoY growth</span></div>
+      <div class="stat"><span class="stat-num">23d</span><span class="stat-label">Avg. hire time</span></div>
+    </div>
+
+    <div class="card">
+      <h3>2025 Compensation Report</h3>
+      <p>Aggregated from 12,000+ professionals across tech, finance, and healthcare sectors.</p>
+      <div class="tags"><span class="tag">Compensation</span><span class="tag">2025</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Remote Work Trends</h3>
+      <p>How remote-first policies are shifting across company stages. Includes data from 480+ partner companies.</p>
+      <div class="tags"><span class="tag">Future of Work</span><span class="tag">Remote</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Emerging Roles in AI</h3>
+      <p>The fastest-growing job titles in the AI space and what skills they require in 2025.</p>
+      <div class="tags"><span class="tag">AI</span><span class="tag">Skills</span><span class="tag">Hiring Trends</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Diversity in Leadership</h3>
+      <p>Benchmarking gender and ethnic diversity across C-suite and VP-level roles in tech companies.</p>
+      <div class="tags"><span class="tag">DEI</span><span class="tag">Leadership</span><span class="tag">Benchmarking</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ IMMIGRATION ════════════════════ -->
+<div id="page-immigration" class="page">
+  <div class="page-inner">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h2>Immigration</h2>
+    <p class="page-sub">Navigate visas, work permits, and relocation with guides built for high-skill professionals.</p>
+
+    <div class="card">
+      <h3>H-1B Visa Guide</h3>
+      <p>Step-by-step breakdown of the H-1B process, lottery timelines, and employer sponsorship requirements for 2025.</p>
+      <div class="tags"><span class="tag">🇺🇸 United States</span><span class="tag">H-1B</span><span class="tag tag-accent">Employer Sponsored</span></div>
+    </div>
+
+    <div class="card">
+      <h3>O-1 Visa Pathway</h3>
+      <p>For individuals with extraordinary ability. Learn how to build your case and what evidence carries the most weight.</p>
+      <div class="tags"><span class="tag">🇺🇸 United States</span><span class="tag">O-1</span><span class="tag tag-accent">Talent Visa</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Global Talent Visa (UK)</h3>
+      <p>Fast-track route for tech workers and researchers endorsed by Tech Nation or a recognized body.</p>
+      <div class="tags"><span class="tag">🇬🇧 United Kingdom</span><span class="tag">GTI</span><span class="tag tag-accent">Tech Nation</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Canada Express Entry</h3>
+      <p>Understand CRS scores, draws, and pathways through the Federal Skilled Worker program for tech professionals.</p>
+      <div class="tags"><span class="tag">🇨🇦 Canada</span><span class="tag">PR</span><span class="tag tag-accent">Express Entry</span></div>
+    </div>
+
+    <div class="card">
+      <h3>EU Blue Card</h3>
+      <p>Work and live anywhere in the EU with this residence permit for highly qualified non-EU professionals.</p>
+      <div class="tags"><span class="tag">🇪🇺 European Union</span><span class="tag">Blue Card</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ HIRING ════════════════════ -->
+<div id="page-hiring" class="page">
+  <div class="page-inner">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h2>Hiring</h2>
+    <p class="page-sub">Reach 40,000+ vetted professionals. Post a role in minutes, fill it in weeks.</p>
+
+    <div class="card">
+      <h3>Post a Role</h3>
+      <p>Roles go live within 24 hours. Reach professionals across tech, finance, design, and operations globally.</p>
+      <button class="btn btn-dark" style="margin-top:1rem; padding:0.55rem 1.2rem; font-size:0.875rem; border-radius:100px; font-family:'DM Sans',sans-serif; cursor:pointer;">Get started →</button>
+    </div>
+
+    <div class="card">
+      <h3>Talent Search</h3>
+      <p>Browse pre-screened candidates by role, location, and salary. Average response time under 48 hours.</p>
+      <button class="btn btn-ghost" style="margin-top:1rem; padding:0.55rem 1.2rem; font-size:0.875rem; border-radius:100px; font-family:'DM Sans',sans-serif; cursor:pointer;">Explore candidates</button>
+    </div>
+
+    <div class="card">
+      <h3>Hiring Analytics</h3>
+      <p>Track pipeline health, diversity metrics, and time-to-fill across all open roles in real time.</p>
+      <div class="tags"><span class="tag">Dashboard</span><span class="tag">Reporting</span><span class="tag">DEI</span></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="stats">
+      <div class="stat"><span class="stat-num">23d</span><span class="stat-label">Avg. time to fill</span></div>
+      <div class="stat"><span class="stat-num">40k+</span><span class="stat-label">Active candidates</span></div>
+      <div class="stat"><span class="stat-num">94%</span><span class="stat-label">Offer acceptance</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ NEWSLETTER ════════════════════ -->
+<div id="page-newsletter" class="page">
+  <div class="page-inner">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h2>The Launched Weekly</h2>
+    <p class="page-sub">Every Thursday — curated opportunities, compensation data, immigration updates, and career insights. Read by 28,000 professionals.</p>
+
+    <div class="form-stack" style="margin-bottom:0.75rem;">
+      <input type="email" placeholder="Your email address">
+      <button class="btn btn-dark btn-full" style="border:none;">Subscribe — it's free</button>
+    </div>
+    <p style="font-size:0.78rem; color:var(--muted); margin-bottom:2.2rem;">No spam. Unsubscribe anytime.</p>
+
+    <hr class="divider">
+    <p style="font-size:0.8rem; font-weight:500; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem;">Recent issues</p>
+
+    <div class="card">
+      <h3>AI is eating middle management</h3>
+      <p>Which roles are being automated first, how to pivot, and the companies actively hiring human leads to oversee AI systems.</p>
+      <div class="tags"><span class="tag">AI</span><span class="tag">March 6, 2025</span></div>
+    </div>
+
+    <div class="card">
+      <h3>The $300k engineer: fact or fiction?</h3>
+      <p>A data-driven look at who's actually earning top-of-band compensation and what they have in common.</p>
+      <div class="tags"><span class="tag">Compensation</span><span class="tag">Feb 27, 2025</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Immigration in 2025: what changed</h3>
+      <p>H-1B lottery updates, O-1 processing times, and which countries are aggressively competing for tech talent.</p>
+      <div class="tags"><span class="tag">Immigration</span><span class="tag">Feb 20, 2025</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ LOGIN ════════════════════ -->
+<div id="page-login" class="page">
+  <div class="page-inner" style="max-width:420px;">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h2>Welcome back</h2>
+    <p class="page-sub">Log in to your Launched account.</p>
+    <div class="form-stack">
+      <input type="email" placeholder="Email address">
+      <input type="text" placeholder="Password" style="border-radius:100px;">
+      <button class="btn btn-dark btn-full" style="border:none;">Continue →</button>
+    </div>
+    <p style="font-size:0.82rem; color:var(--muted); text-align:center; margin-top:1.2rem;">
+      Don't have an account? <a href="#" onclick="show('join'); return false;" style="color:var(--text); text-decoration:underline;">Join Launched</a>
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════ JOIN ════════════════════ -->
+<div id="page-join" class="page">
+  <div class="page-inner" style="max-width:420px;">
+    <button class="back" onclick="showHome()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h2>Join Launched</h2>
+    <p class="page-sub">Create your account and start elevating your potential today.</p>
+    <div class="form-stack">
+      <input type="text" placeholder="Full name">
+      <input type="email" placeholder="Email address">
+      <input type="text" placeholder="Password" style="border-radius:100px;">
+      <button class="btn btn-dark btn-full" style="border:none;">Create account →</button>
+    </div>
+    <p style="font-size:0.78rem; color:var(--muted); text-align:center; margin-top:1rem;">
+      By joining you agree to our Terms of Service and Privacy Policy.
+    </p>
+    <p style="font-size:0.82rem; color:var(--muted); text-align:center; margin-top:0.8rem;">
+      Already have an account? <a href="#" onclick="show('login'); return false;" style="color:var(--text); text-decoration:underline;">Log in</a>
+    </p>
+  </div>
+</div>
+
+<footer>
+  <span style="display:inline-flex; align-items:center; gap:6px;">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGgAAABoCAYAAAAdHLWhAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAfFklEQVR4nO2dabBd11mmnzXs4ZxzB8myJc+RRzmaZ88JhoQuwlhQGWyTEAL9lz80kNh4dhwIVDUFf7q7qgkQJw5NgIQhRVHdTQG2Y82DNdhxPMt2hG1Zdzjn7L3X8PWPda7kIY6le690JbXfquN7z5Vr77X2e9a3hu99vwPv4328j+lDzXUDZhM3DeVy5QWXcsm5i2lJzs79ezjYjPGdsddP236etg1/O35+4ah89qb/xJULLsTWQiE5TsOOV77Ht3du5msvvXRa9tXOdQNmAx+6aKH85w9/hHXDCyjGu4yYFso7fKaZd9EHaJWGA//nO/Kvh3unHUl6rhswG1h/8aVc0RphYROZHwUzfphw6FXyapLOxATXLF7MTStWzHUzp4UzgqAfv3w5l7VH4fAYselCCdn5o2A8utdlqKpY/4HL5rqZ08IZQdB5eZvq4CE0Cj1/lF49AaFHU09SdEr6rx/inFZnrps5LZwRBMXKU5oMlIKmTxwq6OKhlUPwtLMCGj/XzZwWzgiCgoKgAZ1+FyAqkLcsCU7Prp4Rq7heBnWATCUabNQoNEYikMjzpyc/ZwZBjYGpAKYi2AhawIgGgaD0+wTNJaKOxDj1BjLP0YimUrh7n6A5hI0RLYNjEQGiThOQBpQm6ETS6YjT9HP1VpQ+kgVAYiIIjh5iKYikkHc64owgyMQ3vVFve039+TQlaNZC3M+ec7Z85Nq1rDvvQnIXePYHB/mXPXv5by+8eMKDS9AaryBqjdYgOm2JpqBFozg5DH1ueJ783MZrufjCC+k6z/dffZ3trxzgT/Zsn9ZzmBWC7lq5QW5Yt5zL5o8w2u8hTc3iheey4qMXM7p1s/z+rp0nlCQBBE1QoAf7n6MEpV9ORqi4c/0G+fiVyzlfWYyLZJ1hLu+McNm552BKLX+0detxP4cZE/Srl1wqH1m7kuXzz4HDh7HeoUXTChkLiiF+dcXVtBotd++f3ifodMHtF39QPn7pKi4/ZxFu4jC+P0nmGhagaQ0NE5ev5IXnn5O/efW143oOM/5g/fj6VVwy0kEfegNef4O2g7YuULXDv3yQJbrgMxuv4Y41G07TWeC9cfvqFfJrN/4YS8pRugdfhaZhOMvRVR8mDpONHeaqdoefXrnquK894xF0kckZGh+npSzZ6AgEgdqDteQtoDfO4rLFLUuWYpta7tq7+4waSfdfvUY+uvgKLhkdhm5DywdypbBoEMEUGkLFSN+w5vwLj/v6MyaoYwzaB6Imzc5NAOfS0koD3qFc4Ir2EJ9cs5G6KOWB7ZvPCJI+v3KV/NyyFZwXQA6/jmqEUg2W9E0D0UOmsShCCPjQHPc9ZhziDhwewxU5gqFf1VAYGLKgHVH3IffQ1ihXcUFRcsvqjfyXJWtO+3B355JV8pl113GhzpmnDUoJ6IA2AYxALunjH4VoLf12iz2v/uC47zNjgr756CM80zgYmYdkBeQZaEUVasg1tQlEaQixRlWTXJTnfObGD/Fbq0/fOen2Vavkl6//MBdEQ6sRpHbgHVidSAk14h1iNMHkvCaGAxoefuG5477XjAn62huH1f/as5une33oDNP0+tB4yrzAOQe5xRlDD0FlGj9+mPPw/PrGjfzu0uWnHUl3r1wtt669jgvEkPUqCIbMtkFZCB4QhEAtgVC0mMzbvNYe4k83b+ZPn3z25C+zAf5gx06VOy2fueY6Liza6P44VmcUQM8FbKkpc0NuLZkEfN1nuFVw64YNRGvlgd0ndp80W7hz7Xr5+LK1XOA1pp6kKApEC66pyQBQUNeoVkFRtDjoAocMfP3hR/ijvTvmbqMK8MU925Vu5XLz5Uu4tOhg+zUYSyEG4wyh8gTpkeUW1TSYfpcr583jk2s3IqLkS49PrwMnC7ddtVRuWbGeJeUIjI2BDoBDSUZoAlknB53B4QZyS88WvFhN8u0tm3hgmuTALG+w79vymPrm4zt5LkZ8OUL0BqMyCBqT5VgRCBGbFSgfiOMTXJKV3HzNddy2btUpG+5uX7VGPr3xRhargvjqa0dWZ77pI64myzJQIC5AXuLKNnsOj/GP+/byxb3Hf3rwZsz6Ccide3apbzyxj+dR+HIE5zSuXw1SnQb6DnyEzjAqy8l7PS4S+Pnla/md1UtPOZLuW7NOfmnJSi6zbYrJLtoqyEBchbYQYo3JNeKFXhC6w6M86T3ffHIv92zbNOOocEKOqO7e9l311c2beE5BHB0mGIOv+oMTZgHnQWXEqCiahk6vzxVlm4+vPbVG0hdWrJCf+eBqlo2eTVZV4GsoDehI42t0ZrC5BlcBkJ91Nk/j+Ystm/jD7TMbOVM4YQm7e/ZvVk2h5NOrVnLpvA56chx0hLOGcC6SSYnxgAQyqxnt1lzeKvnkmutpukH+8Ik9czon3blkldyy7noWOkXuA5hIzEH7ClQkywxIWrURHI3JeGbyMF97chd/sG/25tMTmlH90s5NyjRd+ez117OoKFD9PtYEXBPIbEQbDY1A06AFsuhZPDKPX7nhQ2SFlS8d4yl4VBHQKRwIaImgBsFBVBKR6HDM7b5t9Rq5Zd11nO8Uw0bhJg6jrWBaBTE6QKGNRbynigEZGeU/nPDtbZv58t7ZXZGe8JT3/fv2qGit3LpqI4tbZ6N6XYaMBfopZJgMlKaSHjbLkcMH+UCrw69vvJrMNXLvvn3v2WFvAgSLCSqpRsQzyKOCFJRiycOxRc7fXbNMPrF+Defh0E2PqCxZ2+KIeCImy/BND1s3qKERXivbHFSGv9vyMPfNMjlwkjKqD+zeqR7a/BgvScSXJSEKWAW5SisioygzS24VHZvRamouwPKpDddz28q1xzgnDYRxwGAYpTkvCBKE7Bg+i3esWy2/uGYDiyKY7iSdwqKtIjYVOggqCnXdkOVt7Mh8DgU4gOKrjzzMfbu3nZCQfNJS3vc/uVs99PijfF9qep2SUAUImpALaAeVT3sILE3QuPE+FxfD3LpqA3ct/dELhzwYEEXQGowlGENjDN5oyHP8MYye+y5bKZ9eej1XdBbS8oaCLJ3MS0DXfQyQ6wzdBEIwVLbFSy7yd//+MH+888SQAydZk3DXth3qr3dv4jnvaMo2TRSC1WnxkJeAAQytVgcdBcYnuCwruPXqa/ndte9OkokaJZpIynU7rfEqvSQKkueEH5Hyvm31CvnEtTdwsS5RPxhjqNFYk0Ndg2vADI5xqopcFfi8ZM8b43xn315+7wRvsE+6aOTenXvUt/ft4ADQtIcR53GTfcgstEp8IygPrVZBYSJ5f5wPSOCWq5Zxz/IP/tCnrEQDFsQwFeqC0jhtGHcVqpW/qy7unnWr5GeXLeecoYJY9egEg3IG+g0YA9FBqVModg5TtHm55/jW/ie4feeWE77SnBNVzx1btqkHNz3CAQJ6eJRgMnp1g9eagNA0FRCR6FC+Jq96LCnafGrN+h85kjRA1JioMANhtmkVVLGhEfeO//+3Vq6Xjy1dwdJ588nrXlpCZybJt5xLJ/OtFoSQxA4LzuaF4Pn6pkf44u7HTso2YM6Ei/fu36lUYeRTq1ZyychZ6F7SMthOSXA1Yjzi6xT1ihxd11xStPj0ymuIE04eeOro6k5UREvERIEgZB6UERoTUWVBN1QpjL4Jv/3BdXLz1ddznptgpHEpb2MCyOQg0mpAiFbT9xqrS16Z7PLV/bu56/u7TtoebU51cffs3KYe2ryFA0CVF/QaR3Q1rumjxZEbQ1AhxX8f0L2KS2yLX7nhpres7owEtPj0yY8RomADGBHqqodVik5mjtz3zpWr5Jevv4ELomaBNrixcah66EKD9Uk7XBpcjIzXgWZoHi9mhm/s3s6dO2fnhOBYMefS33v371E+y+XWVRtY3G4hvTFKqyEI3tVokyFG4QCbFzSTXRa2Sj674WpGJ8fkX595GulOkg0Vg2RZgKoLo2ehqz6FscQYYGKcj4H82FVX8JPrN3KJydCHx8A4sqINvkkvqxDv6cWI7YwCBQdRfGX3llnfhB4L5pwggAd2b1e6buQz193AxWWOqXqQZVhTUEdPpnNMrtE2p0XENDUXtzM+ec01nGU05w4PI00FceBBKW2a3IMnw+BixQc6w9y65CpWrV7NQqXJx8fIETCW6Cq0qDQCfYVqtegUJQdd5HUrfO2RR/nyDFIGM8EplYO5c/0aueWqZVxmcmxVgVJEbVG2wNUeEYUuDM7VGBzFcIcDk5OMDo9QTlRkMUIOBAdGE0LE6FZy17VLXp+YYMG5i+iPj1H0PLrdBiP0JidpFyUg0J2AdgtaQ+zr9vjKE4/zhzvnLld1ShEEcN/KZfKJVWtZbEpUt48tWyhtISpc3SfLLRjwvXEwGmm1cbWjrS2Q9A9eRUSEwuRQ65SOjhEQyDXOOTKlwWhqBSJCqWxauYUAQ8N8b3yMb3//CX5799wmEk858fwdu/eqh57cx/PKULdH6XtFv18jlkROrwLnsZ0WlBk0HlWlA0wQmhiIWhO1RtBQOVAmnQqYjNh4ssyCVTRNDx89tsgJEnFBQ2s+z9fC15+ae3LgFCQI4O7N29SDjz3KASKMDBO1ot/vpkNQFaCpIArihUxn5MaCD4iPaAzW5GhlcS6kDbAMPCjKoK1NS2iJWGtp5wbvGpy2sPBsno3Cn295jHtOkRT8KUkQwL37d6uv797Kc/0x7HBJbiIoB6PlYBGQkfUBDCbPIQRUhFznaA8Wk4SURZnmI6MJ0dMQiQLeBXRmUekNlVE8MTnBn+3beVL3Oe+FU5YggPt2bFH/8PC/8HrTJVqLcx4fPX3vU8jSGbGukx4gxpS60BpfNxAUWZbjvQOdcjlePEoptDH4wTViryYr2oyFwD9t2cS9Ox45ZciBU2SZ/aPwL888zXyt+KkNGzinbBF6NYXJ0jkZAa0UxIDKM1J2E3JbpKPRGLBGwUBymw9OB6RxlGV7cAJuGasi/7zlu/zz0/vnrqPvgh/6afnNG66Vj1y5krNVBk0kqGR1b0wy7NoYKX3ExGSemq6IIKqYkm2klMHUqTSk4xsjAelOsrDT4WxrKGtPHkCZtCpr6oo8z6Z5dxAUojL0yAjPTh7i+e4Eev4oUhS4KpAZi/YptRRVRFQkKg9KUtY2mWBTKJ0GFNApW3SrPnXjMUVO1unw6tgYm3ftZMfuXW8l6BcWzZNf/+jHWNKZx6JoyPseK4qgoTbgTWqoloEnlPQ3mXGkTKbfI6fSpLS1Fk9hFbHpo5zDAlolaz1q4NKSOKPNQtX0UdYgUaFNTt5q43yk8gGd5wQlBAVRCaIiiggpsYGSqb5Pl6BI6PcxRqG1HixiDBhL3zX0qv7Rrv1YJ5Pf+Olf4EPnXsTwWBf/2uu0h0cGJ7m88yEMikSITs626UADOiggLYsjGsSkv0c5srPHCBRpaUzw+NphRUHRSqcH07y/qIhqF1DV4CSlK5yka1oLhcVLJOg4MCELJsXORM7gvnGaBGkiOi8HSqcIdU2IAWUN2hhQ6ugctOTCy7h09Fz0oS65QD5/FKwihpCshQzMuoP9HmhQSZthp/sJFtKymYDWNukJiOioB47tCEUONCA1EgalXgpN9Ap8hTbTD3ERjasacJFSJW0EyqWUQ2lwKhCVQqEwAXRUb+27SqN3+vHD0oz3scqCtmjbwViTnOmupl/XRwk6f/55dMgZMQYmx6FtGHv9IGb+EEIqr2KnikTEQZMG4VemO4IkAgEQokScSuHCoLACiEBVgQkEG6ljBGvJbIE2BvGBmXiDNSTVqzapM1EGn0SoVaDyDm1N6rebauqgsynLjszIPh7JixbYgWw4NDjniNGTZRmdkdZRgoZNm7ZuoUMf13NkLcPo+RfQrScGplyNFp06IOqIzX1qKpgWlE7DWwvBaKJKmdAoafNvpsQlNsPkhrYGFwLeJT2aURaQaVvslShKsYPKSyEtGqzFWyEaTZ5nqMaTTRXJUAws5AA69Z04GPnThBWi7xKCgAGbWUDhfUXT7R4l6OVXD3KoO8GoQGfRAuLEa+DBZoKQcitpXuCtMf/Iw9EckTod189Uq0Wp9BKd6u6IBqMUuckITU0caKCNMkcqiSirQY5d7/YOyNR/hCiCzjUqN0TXEOqaPM9RIQ5yfWmuTJORnlohDH7K9PsfGpSGzCY9heCIMWkGbfYmLdLOF5/kwyuv5IJF5xFefZWRzICJFH7q0zFoiB409h2jRo7/p2hQGUSFDYLRBmWgih5vhFZZEEJABciDhTqifESXRVLvOIfRiunHOQFxUBZI09DEQG46FI1HVRW5HSh7FGAUwUZEqQEhA8pEBo9iGv0nAh4lkn6FAUnpWfsY3vqYP3XuufKrN/04yxYsoN3rId0eQ2UJQFAqhR+VyntNXU8P9gBTj+l4fmrRZF4n/YAyVCI4A/lQSaMDY4cOMWINhXcMe5XitDLg0ryFYRBepj8PyOD4Rw+1cFoYG58kz3NGWx1ClXQMTuukFNLpd0hKIk2qEwRxWv1PC6JAZgyRREjUGpXlVD68dZn9Ztx949Vy0/LVjJqManwSAD9o4FTxPC1pdKvBpDmdAa4EWirHVY7cWEQruq7GlJasMLjuBO3Gs3hohAVeYLIeaNUUkmeo4Q70J2ZEEDYjZIoX6kleCzVquEPMMkLl0EEh0RA0NFrhdXoOkFb+SqYIml7/03VS230UxGh0WfJGt8vW3bvZunPXDyfoVMGHQDrArVcu4SeXreIcW6a9j7b4uk/lKjplMYMyLwowjAfH32x9lL9++in+4RTLkZ3Sh6X/Buqjyz/Img3rWLBoIQ2RUPcgVpAJrU45sypJEeh5RuwwH95wAzddtXzW2j5bOKUJumPFSvnwumtZ1B4l1A3GakyRIeKI3k9/ef9mdFogkbPbHW5cvZ7bl64+ZfxJcAqfZv/WVWvlF9dfxyUmo93tkrkqLQrEo2JIc4BzKGXe81rvCh0gjCMadN+y/JyFnPMTH0UpLffvPTVqC50SjXg7fmf1Rrl543WcHxRD3S4tiWlWFof3Ndqa5C0KAipDUCjSYWYc+ISUTB3LyJt6qd60/AygIhI8KrP4qJgMUBctDir42107uXvH3FdEOeVC3J2rl8ut61dwMRVl71Uy3UAOXkcaa1DDwzgluKpKonZlqZoIBpRVBCtUEokBwKTDXqsRFMFFoE0qLhdSHokCYoYLnlYJQ/UEl6rIp9et464Pzn0dh1OKoDvWrZZfWLueRSLkk+MM5xarIbqkQQCo6gZTtMnmzacfI4cEzOgwQSKhrlAhYkipA2KEVk6/6hFbGX1rk8YaCzaDLE+GZmVoWUthDB2bUTY1FyjNJzdeexz+pBODU4agd/XnENF1H8tRf06Mlsq2eNEL39r6KK/4Pt5FTLRkKicPCpTgg0+jpFPybG+Mb27+N56NfZqzR+kGIUShKWbuTzqROCUIOiZ/Tgzv8Of8w/69/OX39vFS0wOtkyZBVNK3KZLuzTXosuSQOP7y6af4251beNr3qcsOtc6Is+BPOpGYc4LuWr9y2v6c33x8h/pnUGFkGGVSep5+hY/JLmJKi7WWw90JyrPP4p9A/eYTu9U3tjzGyyh8e5jYxBn7k04k5nSZ/fmVq+Rnli7nyuFRTK+H9g1kQ6lylHfQzgE1GEUZzFvAC5MND215jC8+9SYhe5YRJKQEnwGbFXjl8SFQGgve0X+TDfLeXVuVxsrPrVjO0uFhwljA1Q15XhLwxKYiK+zAn+TIxbGklfxJLs/l/u3/H9hPpuqtLVYZI42jEwPZEX9ODcVAgZMZukrTmJLnJ7v8xf5t3PlmcoCm7wkq+VHJDbGT049JooXzzG+P0D08+Zb7373rMfVX27fybNWgRs5CmwItmqJTYjKd/EmqTmnkwiZ/kk3+pNuuOHkVUeaEoKl6axcGw1k6e09/jhuef8Sfc8eOd9oOJURUloNVTHpH5WtcDJRlia9qMpslnfbb8KV9O9U3tmyasT/pROKkE/SWemv9CqqBP0er5M8xEYkNXdcjlgVSjvIDMfyPXdv4/J4fLsctVEZAcMFRtFsEibRN0m3bvKDq9tOi44fgnv171J9u+i4v+wbdbiGueYs/ydgcrKZBQZZTT0yyEM3nrr6WO5ee+JF0Ugm6c+16+fiqjaneWneSssjQ1hKdS2nnIFD1UZmlMzTCYR95GeGrjzzCl7e/u9VdS0qBBJ1S0DZCFtK3oKDA6ZTPejc8sHu7emjzI7yEw5f5QMlksKagCYGoMkzewmQF7Tztky4Ebt5wNV9YdWLP7k4aQVP11pa25zHiPIUOoBzRKiofBhvHApwa7PQzXq88X9n63festxZVHOj1EimlJ9UBikl25LSmeY8ju/uf3KMefHwTz4UKX5bJFREURgpUsAQXqbtVuleokfFDLC5KPrFmI19YceJqsJ4Ugt6t3lrdVDTOoYs8CUh8BFtCPsT33hjjH/cdm3lKBqpPACIoP0j5xjRyUrLxvbt679Yd6q927+CZ6GhaHVwYZHHR5HmJUYKNkXaRY0IgToyxOD+x9e5OOEE/st5apmbFnxNVEhIaiUd1ezFJuGQQ4o71+4Pe7k+qgj7iT7KZgX4NzpN1WpjMUvYmT2i9uxNK0HvVW8usoVXMgj9HTQkwpt5zRBo1Hd30u/qTCIBP/iQB7SNl405ovbsTtlE9pnpr0WOUwvlAVRS8ODnBN/ft4d7j9OdoicnlQDyijkoSqfTvJmrMcZQjg+RPkrKQm1eu5tKRFqY3DoTkT2pc8ifVEVQgs8UJq3d3QkbQ7avWyC033MB5ohm1BjcxTmzSmRg6KR21TfXWJhtPPTTCK0rxrR1bpu3POZL5VgPx56BwxRRfb/mOoWPEfTu2qG9s/i4v4WmygsoFnA80zcCfZDQQkgS5aSgneiy2JZ+54SZ+Z9W6WRlJs07Q3WuWyy9fvYYFsUepahpfoTsl2CJJgnSeZFPdHqrIeWP+Ap4oCh7cvpU7H59uFtMgyftwlCCAgRNj6jUd3Lt/j/rKY5t4Lmhi+2xUrchNCcYj9KGlwIKXmsKAfuMwF0bN5zbeyG3LZr4En1WCPr9iqXxsyTIuVJZWXZNFR2kg1jUigkSVtGZ5G0ZGOezhFVF8/eGHeWDXDEp6SVoQvMVloI7q1bRM13+QcP/jR+vdNWU7ZUFshsoyvI+gFTZP3tchbRjt1VwslpvXX8cXNmycEUmzRtDvXbVefm3lh1g5cj55N1B4jRIDPmKrPkYJKtdEn2weYju8fBLqrc0Wfmi9O2ex0aa1g4vQ7UEI6KqPeeMwV2Qln1u+kc9fMv1T8Fkh6AtLV8gvbbiaS1vzUId7ZA1Ym6e8jOsf1VA3DTHP6JVtdo5P8Pf79/PFdzm+ORXx9np3LirQBUSb9m8yWKi0c6Lq47tvcJEXPnvtjdy+bnojacYE/cbFH5BfXL6K80aHmZh8AyOCKtugDbgacNDSEB2Nd7h2h6dCzTee2svnZxLW5ghvrndXd4apoib2PIONEsQasob6LEvTDoT+GEsWLOCnrlrKpxaee9wkzZign7hqBVcMjxK64wgNprSJmLpO5quyQIIDrTFnL+A5afjapu/y5R0nt2rUbGKq3t0LRMLofLwpUoJRaWorvKH61JkjUNMuDP4/XuHS1hAf23Dtcd9rxvug80bnUzQeL54yNxBqfL+LKTXKpm+o73vBZzkvdLs8tHd260rPFe7dv1NJkcsnV67nsnnzkIlJVObww20aeuQIxjuwJXGiR7vV4vJzFx33fWa+US1KnNbkYsiJUPexhYHhNv2xMYLOCcMjvBSEv966hQd2n74j5+24b+dmFZyTX7nuw5xfZlBXeCfgPa3MkmOhX5GPDhOVIfS7x32PGYe4PYdfZ7zMk0MsCJQ51BVM9mnlHVxnhBeV5i+2b+PuM4icKTywd4f6n9v+nZfE02qN0p5ULOqXlD2Drg0UBROTEziJjB8eO+7rz5ig72zbwot4qk5Jr2nS7jozBAn02i1eVMKfP/owv79z7lWaJwpf3r5NPfjwv7F3/DD5/HMga0OdVnhVHRi+6CJeijX/e/e24772jEPcN195UV2xZ5f81JKruOSsIZqqh+m0CcPDPNmd4Os7dvLHe06PL3CaCe5/Zq8Koy3ptQxXjMyjLAukdkje5smDB/nL/Tv4rweeP+7nMCuHpV965GH1yg9elp9ctoxLhkcIBJ58+gDf2rqFv/+PsTOenCl8acdW9eLBH8hPrFzL5ecuItOK5595hv+7Zwf//dCr03oOs3aa/WdPP6P+7OlnZutypy0efPmAevDlA7N2vTkXLr6PH433CTrFcYYQpAcpbwaeoDenFuTUNEEdI84IgrKsQEdB6+T7cU2VvnRWCRiLrz1FVs51M6eFM4KgyV6VSplpA95TZDkEh4gced+4d353w+mAM4IgH0MqGKRtKo3ZKhERlNYggs0zKnf8X3R+KuCMIKhstY6MFtHqaNrbaNAKH2OqvX0a4owgKO+0Umkw16CMRpqGGAdftIEiSCRrvz8HzRkOjY+hswxlDMpaApIKBAIohTIZE3V/bhs5TZwRBG3dtQMfUhnLEAWT2WSJHMh7mujZvnvXHLdyejgjCNqyfSvdbhdipKoqQBNjJIRAEzyTk5M8tmXLXDdzWvh/W5qLe/N3ZB8AAAAASUVORK5CYII=" alt="Launched" style="width:14px;height:14px;object-fit:contain;" />
+    Launched · Elevating Human Potential · 2025
+  </span>
+</footer>
+
+<script>
+  const home = document.getElementById('page-home');
+  const footer = document.querySelector('footer');
+
+  function show(id) {
+    home.style.display = 'none';
+    footer.style.display = 'none';
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const pg = document.getElementById('page-' + id);
+    if (pg) {
+      pg.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    if (id === 'database') setTimeout(() => { renderOpps(); renderCos(); }, 0);
+  }
+
+  function showHome() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    home.style.display = 'flex';
+    footer.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function sel(btn) {
+    const group = btn.closest('.q-opts');
+    group.querySelectorAll('.q-opt').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+  }
+
+  function showDatabase(tab) {
+    show('database');
+    setTimeout(() => switchTab(tab), 50);
+  }
+
+  function switchTab(tab) {
+    ['opportunities','companies','funding','compensation'].forEach(t => {
+      document.getElementById('panel-' + t).style.display = t === tab ? 'block' : 'none';
+      const btn = document.getElementById('tab-' + t);
+      if (btn) btn.classList.toggle('db-tab-active', t === tab);
+    });
+    if (tab === 'opportunities') renderOpps();
+    if (tab === 'companies') renderCos();
+  }
+
+  /* ── OPPORTUNITIES DATA ENGINE ── */
+  const OPPS = [
+    {role:'VP of Engineering',dept:'Engineering',co:'Stripe',color:'#6366f1',loc:'San Francisco, CA',comp:'$280k–$350k',compMin:280,type:'Hybrid',level:'Executive',tags:['Fintech','Leadership','High Growth'],posted:'2d ago'},
+    {role:'Staff ML Engineer',dept:'Engineering',co:'Anthropic',color:'#10b981',loc:'San Francisco, CA',comp:'$250k–$320k',compMin:250,type:'On-site',level:'Senior',tags:['AI','Research','ML'],posted:'1d ago'},
+    {role:'VP of Product',dept:'Product',co:'Ramp',color:'#14b8a6',loc:'New York, NY',comp:'$260k–$340k',compMin:260,type:'On-site',level:'Executive',tags:['Fintech','NYC','Leadership'],posted:'3d ago'},
+    {role:'Director of Sales',dept:'GTM',co:'Rippling',color:'#f97316',loc:'Remote',comp:'$200k–$280k + OTE',compMin:200,type:'Remote',level:'Senior',tags:['Enterprise','Remote','GTM'],posted:'4d ago'},
+    {role:'Head of Growth',dept:'GTM',co:'Linear',color:'#f59e0b',loc:'Remote',comp:'$160k–$220k',compMin:160,type:'Remote',level:'Senior',tags:['Startup','Remote','Growth'],posted:'5d ago'},
+    {role:'Chief of Staff',dept:'Operations',co:'Notion',color:'#ef4444',loc:'New York, NY',comp:'$180k–$240k',compMin:180,type:'Hybrid',level:'Senior',tags:['NYC','Strategy','Operations'],posted:'2d ago'},
+    {role:'Enterprise Account Executive',dept:'GTM',co:'Vercel',color:'#8b5cf6',loc:'New York, NY',comp:'$140k–$200k + OTE',compMin:140,type:'Hybrid',level:'Mid',tags:['NYC','Dev Tools','GTM'],posted:'6d ago'},
+    {role:'Senior Frontend Engineer',dept:'Engineering',co:'Figma',color:'#0ea5e9',loc:'Remote',comp:'$180k–$230k',compMin:180,type:'Remote',level:'Senior',tags:['Dev Tools','Remote','React'],posted:'1d ago'},
+    {role:'Revenue Operations Manager',dept:'GTM',co:'HubSpot',color:'#ec4899',loc:'Boston, MA',comp:'$130k–$170k',compMin:130,type:'Hybrid',level:'Mid',tags:['GTM','RevOps','SaaS'],posted:'7d ago'},
+    {role:'Backend Engineer — Infra',dept:'Engineering',co:'Brex',color:'#6366f1',loc:'New York, NY',comp:'$190k–$250k',compMin:190,type:'Hybrid',level:'Senior',tags:['Fintech','NYC','Infrastructure'],posted:'3d ago'},
+    {role:'Demand Generation Manager',dept:'Marketing',co:'Salesforce',color:'#0ea5e9',loc:'San Francisco, CA',comp:'$140k–$180k',compMin:140,type:'Hybrid',level:'Mid',tags:['Enterprise','Marketing','ABM'],posted:'4d ago'},
+    {role:'Product Manager — AI',dept:'Product',co:'Anthropic',color:'#10b981',loc:'San Francisco, CA',comp:'$200k–$260k',compMin:200,type:'On-site',level:'Senior',tags:['AI','Product','SF'],posted:'2d ago'},
+    {role:'VP of Sales',dept:'GTM',co:'Ramp',color:'#14b8a6',loc:'New York, NY',comp:'$280k–$380k + OTE',compMin:280,type:'On-site',level:'Executive',tags:['Fintech','NYC','Leadership'],posted:'5d ago'},
+    {role:'Engineering Manager',dept:'Engineering',co:'Figma',color:'#0ea5e9',loc:'Remote',comp:'$220k–$280k',compMin:220,type:'Remote',level:'Senior',tags:['Dev Tools','Remote','Leadership'],posted:'6d ago'},
+    {role:'Growth Marketing Lead',dept:'Marketing',co:'Linear',color:'#f59e0b',loc:'Remote',comp:'$120k–$160k',compMin:120,type:'Remote',level:'Mid',tags:['Startup','Remote','Marketing'],posted:'8d ago'},
+    {role:'Head of People',dept:'Operations',co:'Vercel',color:'#8b5cf6',loc:'Remote',comp:'$180k–$230k',compMin:180,type:'Remote',level:'Senior',tags:['HR','Remote','Startup'],posted:'3d ago'},
+    {role:'Senior Data Scientist',dept:'Engineering',co:'Stripe',color:'#6366f1',loc:'San Francisco, CA',comp:'$200k–$260k',compMin:200,type:'Hybrid',level:'Senior',tags:['Fintech','Data','ML'],posted:'1d ago'},
+    {role:'Content Marketing Manager',dept:'Marketing',co:'HubSpot',color:'#ec4899',loc:'Boston, MA',comp:'$100k–$130k',compMin:100,type:'Hybrid',level:'Mid',tags:['Marketing','Content','SaaS'],posted:'9d ago'},
+    {role:'Solutions Engineer',dept:'GTM',co:'Brex',color:'#6366f1',loc:'New York, NY',comp:'$160k–$210k',compMin:160,type:'Hybrid',level:'Mid',tags:['Fintech','NYC','Technical'],posted:'2d ago'},
+    {role:'Chief Revenue Officer',dept:'Leadership',co:'Cohere',color:'#8b5cf6',loc:'Toronto / Remote',comp:'$350k–$500k + equity',compMin:350,type:'Hybrid',level:'Executive',tags:['AI','Leadership','Revenue'],posted:'1d ago'},
+  ];
+
+  let oppQFs = [];
+  let oppSortMode = 'recent';
+
+  function renderOpps() {
+    const q = (document.getElementById('opp-search').value||'').toLowerCase();
+    const dept = document.getElementById('opp-dept').value;
+    const loc = document.getElementById('opp-loc').value;
+    const type = document.getElementById('opp-type').value;
+    oppSortMode = document.getElementById('opp-sort').value;
+
+    let filtered = OPPS.filter(o => {
+      const text = (o.role+o.co+o.dept+o.loc+o.tags.join(' ')).toLowerCase();
+      if (q && !text.includes(q)) return false;
+      if (dept && o.dept !== dept) return false;
+      if (loc && o.loc !== loc) return false;
+      if (type && o.type !== type) return false;
+      for (const f of oppQFs) {
+        if (f==='$200k+' && o.compMin < 200) return false;
+        if (f==='$300k+' && o.compMin < 300) return false;
+        if (f==='Senior' && o.level !== 'Senior') return false;
+        if (f==='Executive' && o.level !== 'Executive') return false;
+        if (f==='Startup' && !o.tags.includes('Startup')) return false;
+        if (f==='AI' && !o.tags.includes('AI')) return false;
+        if (f==='Fintech' && !o.tags.includes('Fintech')) return false;
+        if (f==='Healthcare' && !o.tags.includes('Healthcare')) return false;
+      }
+      return true;
+    });
+
+    if (oppSortMode==='comp-hi') filtered.sort((a,b)=>b.compMin-a.compMin);
+    else if (oppSortMode==='comp-lo') filtered.sort((a,b)=>a.compMin-b.compMin);
+    else if (oppSortMode==='alpha') filtered.sort((a,b)=>a.role.localeCompare(b.role));
+
+    const container = document.getElementById('opp-rows');
+    const empty = document.getElementById('opp-empty');
+    document.getElementById('opp-count').textContent = filtered.length + ' of ' + OPPS.length + ' opportunities';
+
+    if (!filtered.length) { container.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display='none';
+
+    container.innerHTML = filtered.map((o, i) => {
+      const oi = OPPS.indexOf(o);
+      const typeClass = o.type==='Remote' ? 'tag-accent' : '';
+      return `<div class="db-row" style="grid-template-columns:2.4fr 1.2fr 1.3fr 1.1fr 0.7fr 0.7fr 90px;">
+        <span class="db-role">${o.role}<span class="db-dept">${o.dept} · ${o.posted}</span></span>
+        <span class="db-co"><span class="db-co-dot" style="background:${o.color};"></span>${o.co}</span>
+        <span class="db-loc">${o.loc}</span>
+        <span class="db-comp">${o.comp}</span>
+        <span><span class="tag ${typeClass}">${o.type}</span></span>
+        <span style="font-size:0.75rem;color:var(--muted);">${o.level}</span>
+        <span><button class="btn btn-dark" style="font-size:0.72rem;padding:0.3rem 0.8rem;" onclick="openApply(${oi})">Apply</button></span>
+      </div>`;
+    }).join('');
+  }
+
+  function toggleQF(btn, f) {
+    const i = oppQFs.indexOf(f);
+    if (i>-1) { oppQFs.splice(i,1); btn.classList.remove('qf-active'); }
+    else { oppQFs.push(f); btn.classList.add('qf-active'); }
+    renderOpps();
+  }
+
+  function setSortOpp(m) {
+    document.getElementById('opp-sort').value = m;
+    renderOpps();
+  }
+
+  function clearOppFilters() {
+    oppQFs=[];
+    document.querySelectorAll('.qf-btn').forEach(b=>b.classList.remove('qf-active'));
+    document.getElementById('opp-search').value='';
+    document.getElementById('opp-dept').value='';
+    document.getElementById('opp-loc').value='';
+    document.getElementById('opp-type').value='';
+    document.getElementById('opp-sort').value='recent';
+    renderOpps();
+  }
+
+  /* ── COMPANIES DATA ENGINE ── */
+  const COS = [
+    {name:'Anthropic',desc:'AI Safety',hq:'San Francisco, CA',industry:'AI / ML',stage:'Series E+',size:'250–1k',roles:21,color:'#10b981',tags:['AI','SF','High Growth','Unicorn'],remote:true},
+    {name:'Stripe',desc:'Payments Infrastructure',hq:'San Francisco, CA',industry:'Fintech',stage:'Series E+',size:'5k+',roles:12,color:'#6366f1',tags:['Fintech','SF','Unicorn'],remote:false},
+    {name:'Ramp',desc:'Finance Automation',hq:'New York, NY',industry:'Fintech',stage:'Series D',size:'250–1k',roles:9,color:'#14b8a6',tags:['Fintech','NYC','High Growth'],remote:false},
+    {name:'Rippling',desc:'HR & IT Platform',hq:'San Francisco, CA',industry:'Enterprise',stage:'Series E+',size:'1k–5k',roles:15,color:'#f97316',tags:['Enterprise','SF','Unicorn'],remote:true},
+    {name:'Vercel',desc:'Frontend Cloud',hq:'Remote',industry:'Dev Tools',stage:'Series C',size:'250–1k',roles:11,color:'#8b5cf6',tags:['Dev Tools','Remote-friendly','High Growth'],remote:true},
+    {name:'Figma',desc:'Design Platform',hq:'San Francisco, CA',industry:'Dev Tools',stage:'Public',size:'1k–5k',roles:8,color:'#0ea5e9',tags:['Dev Tools','SF'],remote:true},
+    {name:'Cohere',desc:'Enterprise AI',hq:'Toronto',industry:'AI / ML',stage:'Series C',size:'50–250',roles:7,color:'#8b5cf6',tags:['AI','High Growth','Remote-friendly'],remote:true},
+    {name:'Brex',desc:'Corporate Cards',hq:'New York, NY',industry:'Fintech',stage:'Series D',size:'1k–5k',roles:6,color:'#ef4444',tags:['Fintech','NYC'],remote:false},
+    {name:'Linear',desc:'Project Management',hq:'Remote',industry:'Dev Tools',stage:'Series B',size:'50–250',roles:5,color:'#f59e0b',tags:['Dev Tools','Startup','Remote-friendly'],remote:true},
+    {name:'Notion',desc:'Productivity Platform',hq:'New York, NY',industry:'Enterprise',stage:'Series C',size:'250–1k',roles:4,color:'#ef4444',tags:['Enterprise','NYC'],remote:false},
+    {name:'Hims & Hers',desc:'Digital Health',hq:'New York, NY',industry:'Healthcare',stage:'Public',size:'1k–5k',roles:4,color:'#10b981',tags:['Healthcare','NYC','Hiring Now'],remote:false},
+    {name:'Scale AI',desc:'Data Labeling & AI',hq:'San Francisco, CA',industry:'AI / ML',stage:'Series E+',size:'250–1k',roles:18,color:'#f97316',tags:['AI','SF','High Growth','Unicorn'],remote:false},
+    {name:'OpenAI',desc:'AI Research Lab',hq:'San Francisco, CA',industry:'AI / ML',stage:'Series E+',size:'1k–5k',roles:24,color:'#10b981',tags:['AI','SF','Unicorn','Hiring Now'],remote:false},
+    {name:'Palantir',desc:'Data Analytics',hq:'New York, NY',industry:'Defense',stage:'Public',size:'5k+',roles:6,color:'#6366f1',tags:['Defense','NYC','Government'],remote:false},
+    {name:'HubSpot',desc:'Marketing Platform',hq:'Boston, MA',industry:'Enterprise',stage:'Public',size:'5k+',roles:9,color:'#ec4899',tags:['Enterprise','SaaS','Hiring Now'],remote:true},
+    {name:'Salesforce',desc:'CRM Platform',hq:'San Francisco, CA',industry:'Enterprise',stage:'Public',size:'5k+',roles:14,color:'#0ea5e9',tags:['Enterprise','SF','Hiring Now'],remote:true},
+    {name:'Duolingo',desc:'Language Learning',hq:'Pittsburgh, PA',industry:'Education',stage:'Public',size:'250–1k',roles:3,color:'#f59e0b',tags:['Education','High Growth'],remote:false},
+    {name:'Tempus',desc:'Precision Medicine AI',hq:'Chicago, IL',industry:'Healthcare',stage:'Series E+',size:'250–1k',roles:8,color:'#14b8a6',tags:['Healthcare','AI','High Growth'],remote:false},
+  ];
+
+  let coQFs = [];
+  let coSortMode = 'roles';
+
+  function renderCos() {
+    const q = (document.getElementById('co-search').value||'').toLowerCase();
+    const industry = document.getElementById('co-industry').value;
+    const stage = document.getElementById('co-stage').value;
+    const size = document.getElementById('co-size').value;
+    coSortMode = document.getElementById('co-sort').value;
+
+    let filtered = COS.filter(c => {
+      const text = (c.name+c.desc+c.hq+c.industry+c.tags.join(' ')).toLowerCase();
+      if (q && !text.includes(q)) return false;
+      if (industry && c.industry !== industry) return false;
+      if (stage) {
+        if (stage==='Series E+' && !['Series E+'].includes(c.stage)) return false;
+        else if (stage !== 'Series E+' && c.stage !== stage) return false;
+      }
+      if (size && c.size !== size) return false;
+      for (const f of coQFs) {
+        if (f==='Hiring Now' && !c.tags.includes('Hiring Now')) return false;
+        if (f==='Remote-friendly' && !c.remote) return false;
+        if (f==='NYC' && !c.hq.includes('New York')) return false;
+        if (f==='SF' && !c.hq.includes('San Francisco')) return false;
+        if (f==='High Growth' && !c.tags.includes('High Growth')) return false;
+        if (f==='Unicorn' && !c.tags.includes('Unicorn')) return false;
+      }
+      return true;
+    });
+
+    if (coSortMode==='alpha') filtered.sort((a,b)=>a.name.localeCompare(b.name));
+    else if (coSortMode==='roles') filtered.sort((a,b)=>b.roles-a.roles);
+    else if (coSortMode==='stage') {
+      const order = ['Seed','Series A','Series B','Series C','Series D','Series E+','Public'];
+      filtered.sort((a,b)=>order.indexOf(b.stage)-order.indexOf(a.stage));
+    }
+
+    const container = document.getElementById('co-rows');
+    const empty = document.getElementById('co-empty');
+    document.getElementById('co-count').textContent = filtered.length + ' of ' + COS.length + ' companies';
+
+    if (!filtered.length) { container.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display='none';
+
+    container.innerHTML = filtered.map((c, i) => {
+      const ci = COS.indexOf(c);
+      return `<div class="db-row" style="grid-template-columns:2fr 1.1fr 1fr 0.8fr 0.9fr 1fr 90px;">
+        <span class="db-role">
+          <span style="display:flex;align-items:center;gap:8px;">
+            <span class="db-co-dot" style="background:${c.color};width:10px;height:10px;border-radius:50%;flex-shrink:0;"></span>
+            <span>
+              <span style="font-weight:500;">${c.name}</span>
+              <span class="db-dept">${c.desc} · ${c.hq}</span>
+            </span>
+          </span>
+        </span>
+        <span style="font-size:0.83rem;">${c.industry}</span>
+        <span><span class="tag" style="font-size:0.72rem;">${c.stage}</span></span>
+        <span class="db-loc">${c.size}</span>
+        <span class="db-loc">${c.hq.split(',')[0]}</span>
+        <span><span class="tag tag-accent" style="font-size:0.72rem;">${c.roles} roles</span></span>
+        <span><button class="btn btn-ghost" style="font-size:0.72rem;padding:0.3rem 0.8rem;" onclick="openCompany(${ci})">View</button></span>
+      </div>`;
+    }).join('');
+  }
+
+  function toggleQFCo(btn, f) {
+    const i = coQFs.indexOf(f);
+    if (i>-1) { coQFs.splice(i,1); btn.classList.remove('qf-active'); }
+    else { coQFs.push(f); btn.classList.add('qf-active'); }
+    renderCos();
+  }
+
+  function setSortCo(m) {
+    document.getElementById('co-sort').value = m;
+    renderCos();
+  }
+
+  function clearCoFilters() {
+    coQFs=[];
+    document.querySelectorAll('.qf-btn').forEach(b=>b.classList.remove('qf-active'));
+    document.getElementById('co-search').value='';
+    document.getElementById('co-industry').value='';
+    document.getElementById('co-stage').value='';
+    document.getElementById('co-size').value='';
+    document.getElementById('co-sort').value='roles';
+    renderCos();
+  }
+
+  /* ── MODAL FUNCTIONS ── */
+  function openApply(idx) {
+    const o = OPPS[idx];
+    const typeClass = o.type === 'Remote' ? 'tag-accent' : '';
+    const tagsHtml = o.tags.map(t => `<span class="tag" style="font-size:0.75rem;">${t}</span>`).join('');
+    document.getElementById('modal-apply').innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.4rem;">
+        <div>
+          <div style="font-size:1.2rem;font-weight:500;color:var(--text);margin-bottom:4px;">${o.role}</div>
+          <div style="font-size:0.85rem;color:var(--muted);">${o.co} · ${o.dept}</div>
+        </div>
+        <button onclick="closeModal()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.3rem;line-height:1;padding:0 0 0 1rem;">✕</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.2rem;">
+        <div style="background:var(--bg);border-radius:10px;padding:0.8rem 1rem;">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:3px;">Compensation</div>
+          <div style="font-size:0.9rem;font-weight:500;color:var(--text);">${o.comp}</div>
+        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:0.8rem 1rem;">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:3px;">Location</div>
+          <div style="font-size:0.9rem;font-weight:500;color:var(--text);">${o.loc}</div>
+        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:0.8rem 1rem;">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:3px;">Work Type</div>
+          <div style="font-size:0.9rem;font-weight:500;color:var(--text);">${o.type}</div>
+        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:0.8rem 1rem;">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:3px;">Level</div>
+          <div style="font-size:0.9rem;font-weight:500;color:var(--text);">${o.level}</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.4rem;">${tagsHtml}</div>
+      <hr style="border:none;border-top:1px solid var(--border);margin-bottom:1.4rem;">
+      <div class="form-stack">
+        <input type="text" placeholder="Full name">
+        <input type="email" placeholder="Email address">
+        <input type="text" placeholder="LinkedIn URL or portfolio" style="border-radius:100px;">
+        <div style="border:1px solid var(--border-md);border-radius:14px;padding:0.8rem 1rem;background:var(--surface);">
+          <textarea placeholder="Tell us why you're a strong fit for this role…" style="width:100%;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:0.875rem;color:var(--text);background:transparent;resize:none;min-height:80px;display:block;"></textarea>
+        </div>
+        <button class="btn btn-dark btn-full" style="border:none;" onclick="submitApply('${o.role.replace(/'/g,"\\'")}')">Submit Application →</button>
+      </div>
+    `;
+    document.getElementById('modal-overlay').style.display = 'flex';
+    document.getElementById('modal-apply').style.display = 'block';
+    document.getElementById('modal-company').style.display = 'none';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openCompany(idx) {
+    const c = COS[idx];
+    const abouts = {
+      'Anthropic': 'Anthropic is an AI safety company working to build reliable, interpretable, and steerable AI systems. Backed by Google and others, they are one of the most well-funded AI labs in the world.',
+      'Stripe': 'Stripe builds economic infrastructure for the internet. Millions of companies of all sizes use Stripe to accept payments, send payouts, and manage their businesses online.',
+      'Ramp': 'Ramp is the finance automation platform designed to save businesses time and money. From corporate cards to bill pay, Ramp automates finance operations end to end.',
+      'Rippling': 'Rippling makes it easy to manage HR, IT, and Finance in one unified workforce platform. It\'s the only platform that lets you manage all employee operations in one place.',
+      'Vercel': 'Vercel is the platform for frontend developers, providing speed and reliability. The home of Next.js, Vercel enables teams to deploy and iterate on web applications.',
+      'Figma': 'Figma is a collaborative interface design tool. Figma helps design teams build, test and ship better products from start to finish — all in one platform.',
+      'default': `${c.name} is a ${c.stage} ${c.industry} company based in ${c.hq}. They are actively hiring across multiple functions and growing rapidly.`
+    };
+    const about = abouts[c.name] || abouts['default'];
+    document.getElementById('co-modal-dot').style.background = c.color;
+    document.getElementById('co-modal-name').textContent = c.name;
+    document.getElementById('co-modal-desc').textContent = c.desc + ' · ' + c.hq;
+    document.getElementById('co-modal-stage').textContent = c.stage;
+    document.getElementById('co-modal-size').textContent = c.size + ' employees';
+    document.getElementById('co-modal-roles').textContent = c.roles + ' open';
+    document.getElementById('co-modal-tags').innerHTML = c.tags.map(t=>`<span class="tag" style="font-size:0.75rem;">${t}</span>`).join('');
+    document.getElementById('co-modal-about').textContent = about;
+    const relatedOpps = OPPS.filter(o => o.co === c.name);
+    document.getElementById('co-modal-opps').innerHTML = relatedOpps.length
+      ? relatedOpps.map((o, i) => `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem;background:var(--bg);border-radius:10px;">
+            <div>
+              <div style="font-size:0.875rem;font-weight:500;color:var(--text);">${o.role}</div>
+              <div style="font-size:0.75rem;color:var(--muted);">${o.loc} · ${o.comp}</div>
+            </div>
+            <button class="btn btn-dark" style="font-size:0.72rem;padding:0.3rem 0.8rem;" onclick="closeModal();setTimeout(()=>openApply(${OPPS.indexOf(o)}),50)">Apply</button>
+          </div>`).join('')
+      : `<div style="font-size:0.85rem;color:var(--muted);padding:0.5rem 0;">No direct matches in our current listings — check back soon.</div>`;
+    document.getElementById('co-modal-view-all').onclick = () => {
+      closeModal();
+      setTimeout(() => {
+        showDatabase('opportunities');
+        setTimeout(() => {
+          const search = document.getElementById('opp-search');
+          if (search) { search.value = c.name; renderOpps(); }
+        }, 100);
+      }, 50);
+    };
+    document.getElementById('modal-overlay').style.display = 'flex';
+    document.getElementById('modal-company').style.display = 'block';
+    document.getElementById('modal-apply').style.display = 'none';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('modal-apply').style.display = 'none';
+    document.getElementById('modal-company').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function submitApply(title) {
+    document.getElementById('modal-apply').innerHTML = `
+      <div style="text-align:center;padding:2rem 1rem;">
+        <div style="width:48px;height:48px;background:rgba(20,20,40,0.06);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:1.4rem;">✓</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:0.6rem;">Application Submitted</div>
+        <div style="font-size:0.9rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.6;">We've received your application for <strong style="color:var(--text);">${title}</strong>.<br>A member of the Launched team will be in touch within 48 hours.</div>
+        <button class="btn btn-dark" style="padding:0.7rem 2rem;" onclick="closeModal()">Done</button>
+      </div>`;
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+</script>
+<!-- ════════════════════ APPLY MODAL ════════════════════ -->
+<div id="modal-overlay" onclick="closeModal()" style="display:none;position:fixed;inset:0;background:rgba(20,20,40,0.45);z-index:500;align-items:center;justify-content:center;"></div>
+
+<div id="modal-apply" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:501;width:min(540px,92vw);background:var(--surface);border-radius:20px;border:1px solid var(--border);padding:2rem;max-height:90vh;overflow-y:auto;"></div>
+
+<div id="modal-company" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:501;width:min(620px,92vw);background:var(--surface);border-radius:20px;border:1px solid var(--border);padding:2rem;max-height:85vh;overflow-y:auto;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div id="co-modal-dot" style="width:14px;height:14px;border-radius:50%;flex-shrink:0;"></div>
+      <div>
+        <div id="co-modal-name" style="font-size:1.25rem;font-weight:500;color:var(--text);margin-bottom:2px;"></div>
+        <div id="co-modal-desc" style="font-size:0.85rem;color:var(--muted);"></div>
+      </div>
+    </div>
+    <button onclick="closeModal()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.3rem;line-height:1;padding:0 0 0 1rem;">✕</button>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.4rem;">
+    <div style="background:var(--bg);border-radius:10px;padding:0.8rem 1rem;text-align:center;">
+      <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:3px;">Stage</div>
+      <div id="co-modal-stage" style="font-size:0.9rem;font-weight:500;color:var(--text);"></div>
+    </div>
+    <div style="background:var(--bg);border-radius:10px;padding:0.8rem 1rem;text-align:center;">
+      <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:3px;">Team Size</div>
+      <div id="co-modal-size" style="font-size:0.9rem;font-weight:500;color:var(--text);"></div>
+    </div>
+    <div style="background:var(--bg);border-radius:10px;padding:0.8rem 1rem;text-align:center;">
+      <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:3px;">Open Roles</div>
+      <div id="co-modal-roles" style="font-size:0.9rem;font-weight:500;color:var(--accent);"></div>
+    </div>
+  </div>
+  <div style="margin-bottom:1.2rem;">
+    <div style="font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Tags</div>
+    <div id="co-modal-tags" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+  </div>
+  <div style="margin-bottom:1.4rem;">
+    <div style="font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">About</div>
+    <p id="co-modal-about" style="font-size:0.88rem;color:var(--muted);line-height:1.7;"></p>
+  </div>
+  <hr style="border:none;border-top:1px solid var(--border);margin-bottom:1.2rem;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+    <div style="font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">Open Roles</div>
+    <button id="co-modal-view-all" onclick="" style="font-size:0.78rem;color:var(--accent);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:underline;padding:0;">View all on Opportunities →</button>
+  </div>
+  <div id="co-modal-opps" style="display:flex;flex-direction:column;gap:8px;margin-bottom:1.4rem;"></div>
+  <button class="btn btn-dark" style="width:100%;padding:0.75rem;font-size:0.9rem;" onclick="closeModal()">Close</button>
+</div>
+
+</body>
+</html>
