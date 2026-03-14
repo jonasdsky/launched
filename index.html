@@ -429,6 +429,16 @@
     .page-inner { padding: 2.5rem 1.25rem 5rem; }
     .card-row { flex-direction: column; }
   }
+  /* ── VIDEO INTERVIEW ── */
+  @keyframes pulse-red { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  @keyframes bar1 { 0%,100%{height:4px} 50%{height:14px} }
+  @keyframes bar2 { 0%,100%{height:8px} 50%{height:4px} }
+  @keyframes bar3 { 0%,100%{height:12px} 50%{height:6px} }
+  .iv-transcript-q { font-size:0.8rem;color:rgba(255,255,255,0.45);line-height:1.5;padding:0.6rem 0.8rem;background:rgba(255,255,255,0.04);border-radius:8px; }
+  .iv-transcript-a { font-size:0.82rem;color:rgba(255,255,255,0.75);line-height:1.6;padding:0.6rem 0.8rem;background:rgba(214,59,42,0.08);border-left:2px solid #D63B2A;border-radius:0 8px 8px 0; }
+  .iv-dot { width:10px;height:10px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);transition:all 0.3s; }
+  .iv-dot.done { background:#10b981;border-color:#10b981; }
+  .iv-dot.active { background:#D63B2A;border-color:#D63B2A;box-shadow:0 0 0 3px rgba(214,59,42,0.25); }
   /* ── DATABASE TABS ── */
   .db-tab {
     font-family: 'DM Sans', sans-serif;
@@ -678,207 +688,184 @@
 
 <!-- ════════════════════ ASSESSMENT ════════════════════ -->
 <div id="page-assessment" class="page">
-  <div class="page-inner" style="max-width:860px;">
+
+  <!-- SCREEN 1: Role Selection -->
+  <div id="iv-screen-select" class="page-inner" style="max-width:900px;">
     <button class="back" onclick="showHome()">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
     <h2>AI Video Interviews</h2>
-    <p class="page-sub">Select a role below to begin your AI-powered video interview. Each session takes 15–25 minutes and generates a detailed skills and alignment report.</p>
-
-    <div style="display:flex; gap:10px; margin-bottom:1.8rem; flex-wrap:wrap;">
+    <p class="page-sub">Select a role to begin. Your camera and microphone will be used. Each session is 15–25 minutes and generates a detailed skills report.</p>
+    <div style="display:flex;gap:10px;margin-bottom:1.8rem;flex-wrap:wrap;">
       <button class="filter-btn filter-active" onclick="filterRole(this,'all')">All Roles</button>
       <button class="filter-btn" onclick="filterRole(this,'gtm')">GTM</button>
       <button class="filter-btn" onclick="filterRole(this,'engineering')">Engineering</button>
       <button class="filter-btn" onclick="filterRole(this,'leadership')">Leadership</button>
       <button class="filter-btn" onclick="filterRole(this,'marketing')">Marketing</button>
     </div>
-
     <div class="interview-grid">
+      <div class="interview-card" data-cat="gtm"><div class="ic-thumb"><div class="ic-badge">GTM</div></div><div class="ic-body"><div class="ic-title">Account Executive</div><div class="ic-meta">25 min · 8 questions · Sales methodology, discovery, closing</div><div class="ic-footer"><span class="ic-level">Mid–Senior</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Account Executive','GTM',8)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="gtm"><div class="ic-thumb ic-thumb-2"><div class="ic-badge">GTM</div></div><div class="ic-body"><div class="ic-title">Sales Director</div><div class="ic-meta">25 min · 9 questions · Team leadership, pipeline strategy, revenue ops</div><div class="ic-footer"><span class="ic-level">Senior</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Sales Director','GTM',9)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="leadership"><div class="ic-thumb ic-thumb-3"><div class="ic-badge">Leadership</div></div><div class="ic-body"><div class="ic-title">Product Manager</div><div class="ic-meta">20 min · 8 questions · Roadmapping, prioritisation, cross-functional leadership</div><div class="ic-footer"><span class="ic-level">Mid–Senior</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Product Manager','Leadership',8)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="marketing"><div class="ic-thumb ic-thumb-4"><div class="ic-badge">Marketing</div></div><div class="ic-body"><div class="ic-title">Demand Generation</div><div class="ic-meta">20 min · 7 questions · Campaigns, pipeline attribution, ABM strategy</div><div class="ic-footer"><span class="ic-level">Mid–Senior</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Demand Generation Manager','Marketing',7)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="gtm"><div class="ic-thumb ic-thumb-5"><div class="ic-badge">GTM</div></div><div class="ic-body"><div class="ic-title">SDR / BDR</div><div class="ic-meta">15 min · 6 questions · Outbound prospecting, cold outreach, objection handling</div><div class="ic-footer"><span class="ic-level">Entry–Mid</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('SDR / BDR','GTM',6)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="engineering"><div class="ic-thumb ic-thumb-6"><div class="ic-badge">Engineering</div></div><div class="ic-body"><div class="ic-title">Software Engineer</div><div class="ic-meta">25 min · 9 questions · System design, problem solving, technical depth</div><div class="ic-footer"><span class="ic-level">Mid–Senior</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Software Engineer','Engineering',9)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="leadership"><div class="ic-thumb ic-thumb-3"><div class="ic-badge">Leadership</div></div><div class="ic-body"><div class="ic-title">Chief of Staff</div><div class="ic-meta">20 min · 8 questions · Executive support, strategic ops, stakeholder management</div><div class="ic-footer"><span class="ic-level">Senior</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Chief of Staff','Leadership',8)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="marketing"><div class="ic-thumb ic-thumb-4"><div class="ic-badge">Marketing</div></div><div class="ic-body"><div class="ic-title">Growth Marketing Manager</div><div class="ic-meta">20 min · 7 questions · Acquisition channels, experimentation, analytics</div><div class="ic-footer"><span class="ic-level">Mid</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Growth Marketing Manager','Marketing',7)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="engineering"><div class="ic-thumb ic-thumb-6"><div class="ic-badge">Engineering</div></div><div class="ic-body"><div class="ic-title">Engineering Manager</div><div class="ic-meta">25 min · 9 questions · Team building, technical direction, delivery</div><div class="ic-footer"><span class="ic-level">Senior</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Engineering Manager','Engineering',9)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="gtm"><div class="ic-thumb ic-thumb-2"><div class="ic-badge">GTM</div></div><div class="ic-body"><div class="ic-title">Customer Success Manager</div><div class="ic-meta">20 min · 7 questions · Onboarding, retention, upsell, NPS</div><div class="ic-footer"><span class="ic-level">Mid</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Customer Success Manager','GTM',7)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="leadership"><div class="ic-thumb ic-thumb-5"><div class="ic-badge">Leadership</div></div><div class="ic-body"><div class="ic-title">VP of Sales</div><div class="ic-meta">25 min · 9 questions · Go-to-market strategy, quota design, hiring</div><div class="ic-footer"><span class="ic-level">Executive</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('VP of Sales','Leadership',9)">Start Interview</button></div></div></div>
+      <div class="interview-card" data-cat="marketing"><div class="ic-thumb"><div class="ic-badge">Marketing</div></div><div class="ic-body"><div class="ic-title">Content Marketing Manager</div><div class="ic-meta">15 min · 6 questions · Content strategy, SEO, editorial planning</div><div class="ic-footer"><span class="ic-level">Mid</span><button class="btn btn-dark" style="font-size:0.75rem;padding:0.35rem 0.9rem;" onclick="startInterview('Content Marketing Manager','Marketing',6)">Start Interview</button></div></div></div>
+    </div>
+  </div>
 
-      <div class="interview-card" data-cat="gtm">
-        <div class="ic-thumb">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">GTM</div>
+  <!-- SCREEN 2: Camera Check -->
+  <div id="iv-screen-check" style="display:none;min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--nav-h) + 2rem) 2rem 3rem;">
+    <div style="width:100%;max-width:560px;">
+      <button class="back" onclick="cancelInterview()" style="margin-bottom:2rem;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to roles
+      </button>
+      <h2 style="font-family:'DM Serif Display',serif;font-weight:400;margin-bottom:0.4rem;">Camera & Microphone Check</h2>
+      <p class="page-sub" id="iv-check-role-label" style="margin-bottom:1.5rem;"></p>
+
+      <!-- Video preview -->
+      <div style="position:relative;width:100%;aspect-ratio:16/9;background:#0f0f1a;border-radius:16px;overflow:hidden;margin-bottom:1.2rem;">
+        <video id="iv-preview" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+        <div id="iv-cam-off" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M16 16L8 8M8 16L16 8M3 3l18 18" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/><path d="M23 7l-7 5 7 5V7z" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-size:0.85rem;color:rgba(255,255,255,0.4);">Camera off</span>
         </div>
-        <div class="ic-body">
-          <div class="ic-title">Account Executive</div>
-          <div class="ic-meta">25 min · 8 questions · Sales methodology, discovery, closing</div>
-          <div class="ic-footer">
-            <span class="ic-level">Mid–Senior</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
+        <!-- Mic indicator -->
+        <div style="position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,0.5);padding:5px 10px;border-radius:100px;">
+          <div id="iv-mic-dot" style="width:8px;height:8px;border-radius:50%;background:#667085;transition:background 0.15s;"></div>
+          <span id="iv-mic-label" style="font-size:0.72rem;color:rgba(255,255,255,0.7);">Mic off</span>
         </div>
       </div>
 
-      <div class="interview-card" data-cat="gtm">
-        <div class="ic-thumb ic-thumb-2">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">GTM</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Sales Director</div>
-          <div class="ic-meta">25 min · 9 questions · Team leadership, pipeline strategy, revenue ops</div>
-          <div class="ic-footer">
-            <span class="ic-level">Senior</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
+      <div id="iv-check-error" style="display:none;background:var(--accent-light);border:1px solid rgba(214,59,42,0.2);border-radius:10px;padding:0.8rem 1rem;font-size:0.85rem;color:var(--accent);margin-bottom:1rem;"></div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button id="iv-allow-btn" class="btn btn-dark btn-full" style="border:none;" onclick="requestMedia()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:6px;"><path d="M23 7l-7 5 7 5V7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Allow Camera & Microphone
+        </button>
+        <button id="iv-begin-btn" class="btn btn-dark btn-full" style="border:none;display:none;" onclick="beginInterview()">
+          Begin Interview →
+        </button>
+      </div>
+
+      <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:1rem;line-height:1.6;">Your camera feed is processed locally. Nothing is recorded or stored without your consent.</p>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Live Interview -->
+  <div id="iv-screen-live" style="display:none;min-height:100vh;background:#0c0c18;padding:0;">
+
+    <!-- Top bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#D63B2A;animation:pulse-red 1.5s infinite;"></div>
+        <span id="iv-live-title" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.9);"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <span id="iv-timer" style="font-size:0.85rem;color:rgba(255,255,255,0.5);font-variant-numeric:tabular-nums;">00:00</span>
+        <button onclick="endInterviewEarly()" style="font-size:0.78rem;color:rgba(255,255,255,0.4);background:none;border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:0.3rem 0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">End interview</button>
+      </div>
+    </div>
+
+    <!-- Main layout -->
+    <div style="display:grid;grid-template-columns:1fr 340px;height:calc(100vh - 57px);">
+
+      <!-- Left: video + question -->
+      <div style="display:flex;flex-direction:column;padding:1.5rem;gap:1.2rem;">
+        <!-- User video -->
+        <div style="position:relative;flex:1;background:#0f0f1a;border-radius:14px;overflow:hidden;min-height:0;">
+          <video id="iv-live-video" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+          <!-- Name label -->
+          <div style="position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,0.55);padding:4px 10px;border-radius:100px;font-size:0.75rem;color:rgba(255,255,255,0.8);">You</div>
+          <!-- Mic live indicator -->
+          <div style="position:absolute;bottom:12px;right:12px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,0.55);padding:4px 10px;border-radius:100px;">
+            <div id="iv-live-mic" style="width:7px;height:7px;border-radius:50%;background:#667085;transition:background 0.1s;"></div>
+            <span style="font-size:0.7rem;color:rgba(255,255,255,0.6);">Mic</span>
           </div>
+        </div>
+
+        <!-- Current question card -->
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.2rem 1.4rem;">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:0.6rem;" id="iv-q-counter">Question 1 of 8</div>
+          <div style="font-size:1rem;font-weight:400;color:rgba(255,255,255,0.9);line-height:1.6;" id="iv-question-text">Loading question…</div>
+          <!-- AI speaking animation -->
+          <div id="iv-ai-speaking" style="display:flex;align-items:center;gap:6px;margin-top:0.8rem;">
+            <div style="display:flex;gap:3px;align-items:flex-end;height:16px;">
+              <div style="width:3px;background:#D63B2A;border-radius:2px;animation:bar1 1s ease-in-out infinite;"></div>
+              <div style="width:3px;background:#D63B2A;border-radius:2px;animation:bar2 1s ease-in-out infinite;"></div>
+              <div style="width:3px;background:#D63B2A;border-radius:2px;animation:bar3 1s ease-in-out infinite;"></div>
+              <div style="width:3px;background:#D63B2A;border-radius:2px;animation:bar2 1s ease-in-out infinite;"></div>
+            </div>
+            <span style="font-size:0.75rem;color:rgba(255,255,255,0.4);">AI Interviewer speaking…</span>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+          <button id="iv-btn-mic" onclick="toggleMic()" style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s;" title="Toggle mic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button id="iv-btn-cam" onclick="toggleCam()" style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s;" title="Toggle camera">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M23 7l-7 5 7 5V7z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2" stroke="white" stroke-width="2"/></svg>
+          </button>
+          <button onclick="nextQuestion()" style="padding:0.6rem 1.6rem;background:#D63B2A;border:none;border-radius:100px;color:white;font-family:'DM Sans',sans-serif;font-size:0.875rem;cursor:pointer;transition:opacity 0.15s;" id="iv-btn-next">
+            Next Question →
+          </button>
         </div>
       </div>
 
-      <div class="interview-card" data-cat="leadership">
-        <div class="ic-thumb ic-thumb-3">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Leadership</div>
+      <!-- Right: transcript panel -->
+      <div style="border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;">
+        <div style="padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.3);">Transcript</span>
         </div>
-        <div class="ic-body">
-          <div class="ic-title">Product Manager</div>
-          <div class="ic-meta">20 min · 8 questions · Roadmapping, prioritisation, cross-functional leadership</div>
-          <div class="ic-footer">
-            <span class="ic-level">Mid–Senior</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="marketing">
-        <div class="ic-thumb ic-thumb-4">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Marketing</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Demand Generation</div>
-          <div class="ic-meta">20 min · 7 questions · Campaigns, pipeline attribution, ABM strategy</div>
-          <div class="ic-footer">
-            <span class="ic-level">Mid–Senior</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="gtm">
-        <div class="ic-thumb ic-thumb-5">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">GTM</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">SDR / BDR</div>
-          <div class="ic-meta">15 min · 6 questions · Outbound prospecting, cold outreach, objection handling</div>
-          <div class="ic-footer">
-            <span class="ic-level">Entry–Mid</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="engineering">
-        <div class="ic-thumb ic-thumb-6">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Engineering</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Software Engineer</div>
-          <div class="ic-meta">25 min · 9 questions · System design, problem solving, technical depth</div>
-          <div class="ic-footer">
-            <span class="ic-level">Mid–Senior</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="leadership">
-        <div class="ic-thumb ic-thumb-3">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Leadership</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Chief of Staff</div>
-          <div class="ic-meta">20 min · 8 questions · Executive support, strategic ops, stakeholder management</div>
-          <div class="ic-footer">
-            <span class="ic-level">Senior</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="marketing">
-        <div class="ic-thumb ic-thumb-4">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Marketing</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Growth Marketing Manager</div>
-          <div class="ic-meta">20 min · 7 questions · Acquisition channels, experimentation, analytics</div>
-          <div class="ic-footer">
-            <span class="ic-level">Mid</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="engineering">
-        <div class="ic-thumb ic-thumb-6">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Engineering</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Engineering Manager</div>
-          <div class="ic-meta">25 min · 9 questions · Team building, technical direction, delivery</div>
-          <div class="ic-footer">
-            <span class="ic-level">Senior</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="gtm">
-        <div class="ic-thumb ic-thumb-2">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">GTM</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Customer Success Manager</div>
-          <div class="ic-meta">20 min · 7 questions · Onboarding, retention, upsell, NPS</div>
-          <div class="ic-footer">
-            <span class="ic-level">Mid</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="leadership">
-        <div class="ic-thumb ic-thumb-5">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Leadership</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">VP of Sales</div>
-          <div class="ic-meta">25 min · 9 questions · Go-to-market strategy, quota design, hiring</div>
-          <div class="ic-footer">
-            <span class="ic-level">Executive</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="interview-card" data-cat="marketing">
-        <div class="ic-thumb ic-thumb-1">
-          <div class="ic-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-          <div class="ic-badge">Marketing</div>
-        </div>
-        <div class="ic-body">
-          <div class="ic-title">Content Marketing Manager</div>
-          <div class="ic-meta">15 min · 6 questions · Content strategy, SEO, editorial planning</div>
-          <div class="ic-footer">
-            <span class="ic-level">Mid</span>
-            <button class="btn btn-dark" style="font-size:0.75rem; padding:0.35rem 0.9rem;">Start Interview</button>
-          </div>
-        </div>
+        <!-- Progress dots -->
+        <div style="padding:0.8rem 1.2rem;display:flex;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);" id="iv-progress-dots"></div>
+        <!-- Transcript scroll area -->
+        <div id="iv-transcript" style="flex:1;overflow-y:auto;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:0.8rem;"></div>
       </div>
 
     </div>
   </div>
+
+  <!-- SCREEN 4: Results -->
+  <div id="iv-screen-results" style="display:none;" class="page-inner" style="max-width:680px;">
+    <div style="max-width:640px;margin:0 auto;padding:3rem 2rem 6rem;">
+      <div style="text-align:center;margin-bottom:2.5rem;">
+        <div style="width:56px;height:56px;background:var(--accent-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#D63B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22 4 12 14.01 9 11.01" stroke="#D63B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;margin-bottom:0.5rem;">Interview Complete</h2>
+        <p class="page-sub" id="iv-results-subtitle" style="margin-bottom:0;"></p>
+      </div>
+
+      <!-- Score cards -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.8rem;" id="iv-score-cards"></div>
+
+      <!-- Transcript summary -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.5rem;margin-bottom:1.2rem;">
+        <div style="font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:1rem;">Session Transcript</div>
+        <div id="iv-results-transcript" style="display:flex;flex-direction:column;gap:0.8rem;max-height:300px;overflow-y:auto;"></div>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-dark" style="flex:1;padding:0.85rem;" onclick="showAssessmentSelect()">Start Another Interview</button>
+        <button class="btn btn-ghost" style="flex:1;padding:0.85rem;" onclick="showHome()">Back to Home</button>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+
 
 <!-- ════════════════════ DATABASE ════════════════════ -->
 <div id="page-database" class="page">
@@ -1379,6 +1366,406 @@
     group.querySelectorAll('.q-opt').forEach(b => b.classList.remove('sel'));
     btn.classList.add('sel');
   }
+
+  /* ══════════════════════════════════════════════
+     VIDEO INTERVIEW ENGINE
+  ══════════════════════════════════════════════ */
+  const IV_QUESTIONS = {
+    'Account Executive': [
+      "Walk me through your most successful enterprise deal. What made it work?",
+      "How do you run a discovery call? What questions do you always ask?",
+      "Tell me about a time you lost a deal you thought you had won. What happened?",
+      "How do you handle a champion who goes dark two weeks before close?",
+      "What does your pipeline hygiene process look like on a weekly basis?",
+      "How do you approach multi-threading in a large account?",
+      "Describe a situation where you had to push back on a prospect's unreasonable demand.",
+      "What's your approach to competitive deals where you're not the incumbent?",
+    ],
+    'Sales Director': [
+      "How have you built and scaled a sales team from the ground up?",
+      "Walk me through how you design quota and territory for a new rep cohort.",
+      "How do you coach a rep who is technically capable but missing quota consistently?",
+      "Tell me about a time you had to rebuild a broken sales culture.",
+      "How do you structure your weekly 1-on-1s with direct reports?",
+      "What does your pipeline review process look like and how do you call the quarter?",
+      "How do you align sales with marketing and customer success?",
+      "Describe a major go-to-market change you led and how you drove adoption.",
+      "How do you think about comp plan design to drive the right behaviours?",
+    ],
+    'Product Manager': [
+      "Walk me through how you prioritise your roadmap when everything feels urgent.",
+      "Tell me about a product decision you made with incomplete data. How did you decide?",
+      "How do you align engineering, design, and stakeholders on a contentious feature?",
+      "Describe the last time you killed a feature or project. How did you handle it?",
+      "How do you define and measure product success beyond basic metrics?",
+      "Tell me about a time user research changed your direction significantly.",
+      "How do you run a sprint planning session and keep velocity high?",
+      "What's your framework for deciding whether to build, buy, or partner?",
+    ],
+    'Demand Generation Manager': [
+      "How do you build a demand gen program from scratch with a limited budget?",
+      "Walk me through how you attribute pipeline to specific campaigns.",
+      "Tell me about a campaign that failed and what you learned from it.",
+      "How do you approach ABM strategy for enterprise accounts?",
+      "What's your process for optimising a paid channel that's underperforming?",
+      "How do you work with sales to align on MQL definitions and handoff?",
+      "Describe how you've used data to shift budget allocation mid-quarter.",
+    ],
+    'SDR / BDR': [
+      "Walk me through your outbound prospecting process from list to booked meeting.",
+      "What's your cold call opening and how do you handle the first objection?",
+      "Tell me about the best email sequence you've written. Why did it work?",
+      "How do you research a prospect before reaching out?",
+      "What do you do when you've hit your weekly activity numbers but not your meeting quota?",
+      "Describe a time you broke through to a very hard-to-reach prospect.",
+    ],
+    'Software Engineer': [
+      "Walk me through the most technically complex system you've designed or contributed to.",
+      "How do you approach debugging a production incident you've never seen before?",
+      "Tell me about a time you had to make a significant technical trade-off. What did you choose and why?",
+      "How do you think about API design? What makes a good API?",
+      "Describe your approach to writing code that others will maintain.",
+      "How have you contributed to improving engineering culture or process on your team?",
+      "Tell me about a performance bottleneck you identified and resolved.",
+      "How do you approach learning a new codebase or unfamiliar technology quickly?",
+      "What's your take on test coverage — how much is enough and where do you draw the line?",
+    ],
+    'Chief of Staff': [
+      "How have you helped a CEO or executive become meaningfully more effective?",
+      "Tell me about a cross-functional initiative you drove from ambiguity to execution.",
+      "How do you manage up when you disagree with a decision your executive is making?",
+      "Describe how you've built and managed an operating cadence for a leadership team.",
+      "Tell me about a time you had to gather information and synthesise a recommendation quickly.",
+      "How do you build trust with people across the organisation who don't report to you?",
+      "What does good stakeholder management look like to you in practice?",
+      "Describe a situation where you had to navigate political tension between two senior leaders.",
+    ],
+    'Growth Marketing Manager': [
+      "Walk me through a growth experiment you designed, ran, and analysed.",
+      "How do you think about the relationship between acquisition, activation, and retention?",
+      "Tell me about a channel that surprised you — one that worked better than expected.",
+      "How do you prioritise your experimentation backlog?",
+      "Describe how you've used cohort analysis to drive a strategic decision.",
+      "What's your approach to building a referral or viral loop?",
+      "How do you balance short-term conversion optimisation with long-term brand health?",
+    ],
+    'Engineering Manager': [
+      "How do you balance technical work with people management responsibilities?",
+      "Tell me about a time you had to let someone go. How did you handle it?",
+      "How do you run performance reviews and give difficult feedback?",
+      "Describe how you've managed a project that was significantly behind schedule.",
+      "How do you build and maintain a high-trust, high-performance team culture?",
+      "Tell me about a major architectural decision you influenced. What was the outcome?",
+      "How do you onboard a new engineer to make them productive quickly?",
+      "What does your approach to hiring look like? How do you assess technical and cultural fit?",
+      "How do you manage competing priorities between product requests and technical debt?",
+    ],
+    'Customer Success Manager': [
+      "Walk me through how you onboard a new enterprise customer for the first time.",
+      "Tell me about a customer you saved from churning. What was the situation and how did you turn it around?",
+      "How do you identify expansion opportunities without being pushy?",
+      "Describe your QBR process and what makes one successful.",
+      "How do you handle a customer who is unhappy but won't tell you why?",
+      "What metrics do you track most closely to predict churn risk?",
+      "Tell me about a time you had to escalate a customer issue internally. How did you manage both sides?",
+    ],
+    'VP of Sales': [
+      "How have you built a repeatable, scalable sales motion from early traction?",
+      "Walk me through how you've designed a go-to-market segmentation strategy.",
+      "How do you think about the relationship between sales and product in an early-stage company?",
+      "Tell me about the hardest sales hire you've made — and what you learned.",
+      "How do you manage the tension between hitting short-term numbers and building for the long term?",
+      "Describe how you've changed the culture of a sales team that was underperforming.",
+      "How do you structure your sales forecasting and what's your confidence level methodology?",
+      "Tell me about a major deal you personally rescued at the last minute.",
+      "What does your first 90 days look like in a new VP of Sales role?",
+    ],
+    'Content Marketing Manager': [
+      "How do you develop a content strategy that drives measurable pipeline?",
+      "Walk me through your editorial planning and production process.",
+      "Tell me about a piece of content that significantly outperformed expectations. Why did it work?",
+      "How do you approach SEO — both technically and from a content perspective?",
+      "Describe how you've built a content programme with limited resources.",
+      "How do you measure the ROI of content marketing?",
+    ],
+  };
+
+  let ivRole = '', ivDept = '', ivTotalQ = 8;
+  let ivQuestions = [], ivCurrentQ = 0;
+  let ivStream = null, ivTimerInterval = null, ivSeconds = 0;
+  let ivMicEnabled = true, ivCamEnabled = true;
+  let ivTranscript = [];
+  let ivAudioContext = null, ivAnalyser = null;
+  let ivMicTrack = null, ivCamTrack = null;
+
+  function showIvScreen(name) {
+    ['select','check','live','results'].forEach(s => {
+      const el = document.getElementById('iv-screen-' + s);
+      if (el) el.style.display = s === name ? (s === 'live' ? 'block' : s === 'check' ? 'flex' : 'block') : 'none';
+    });
+  }
+
+  function startInterview(role, dept, totalQ) {
+    ivRole = role; ivDept = dept; ivTotalQ = totalQ;
+    document.getElementById('iv-check-role-label').textContent = role + ' · ' + dept + ' · ' + totalQ + ' questions';
+    showIvScreen('check');
+    document.getElementById('iv-allow-btn').style.display = 'block';
+    document.getElementById('iv-begin-btn').style.display = 'none';
+    document.getElementById('iv-check-error').style.display = 'none';
+    document.getElementById('iv-cam-off').style.display = 'flex';
+  }
+
+  async function requestMedia() {
+    try {
+      ivStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      const preview = document.getElementById('iv-preview');
+      preview.srcObject = ivStream;
+      document.getElementById('iv-cam-off').style.display = 'none';
+      document.getElementById('iv-mic-dot').style.background = '#10b981';
+      document.getElementById('iv-mic-label').textContent = 'Mic active';
+      document.getElementById('iv-allow-btn').style.display = 'none';
+      document.getElementById('iv-begin-btn').style.display = 'block';
+      document.getElementById('iv-check-error').style.display = 'none';
+      // Setup audio meter
+      setupAudioMeter(ivStream, 'iv-mic-dot');
+    } catch (err) {
+      const errEl = document.getElementById('iv-check-error');
+      errEl.style.display = 'block';
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        errEl.innerHTML = `<strong>Permission denied.</strong> To fix this:<br>
+          1. Click the 🔒 lock icon in your browser's address bar<br>
+          2. Set <strong>Camera</strong> and <strong>Microphone</strong> to <strong>Allow</strong><br>
+          3. Refresh the page and try again`;
+      } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+        errEl.textContent = 'No camera or microphone found. Please connect a device and try again.';
+      } else if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
+        errEl.textContent = 'Your camera or microphone is already in use by another app. Close it and try again.';
+      } else if (err.name === 'OverconstrainedError') {
+        errEl.textContent = 'Camera resolution not supported. Try a different browser or device.';
+      } else if (location.protocol !== 'https:') {
+        errEl.textContent = 'Camera access requires HTTPS. Please visit the site over a secure connection.';
+      } else {
+        errEl.textContent = 'Could not access camera/microphone: ' + err.message + '. Try refreshing the page.';
+      }
+    }
+  }
+
+  function setupAudioMeter(stream, dotId) {
+    try {
+      ivAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+      ivAnalyser = ivAudioContext.createAnalyser();
+      ivAnalyser.fftSize = 256;
+      const src = ivAudioContext.createMediaStreamSource(stream);
+      src.connect(ivAnalyser);
+      const data = new Uint8Array(ivAnalyser.frequencyBinCount);
+      function tick() {
+        if (!ivAnalyser) return;
+        ivAnalyser.getByteFrequencyData(data);
+        const avg = data.slice(0, 10).reduce((a, b) => a + b, 0) / 10;
+        const dot = document.getElementById(dotId);
+        if (dot) dot.style.background = avg > 20 ? '#10b981' : '#667085';
+        requestAnimationFrame(tick);
+      }
+      tick();
+    } catch(e) {}
+  }
+
+  function beginInterview() {
+    // Build question list
+    const pool = IV_QUESTIONS[ivRole] || IV_QUESTIONS['Account Executive'];
+    ivQuestions = pool.slice(0, ivTotalQ);
+    ivCurrentQ = 0;
+    ivTranscript = [];
+
+    // Wire live video
+    const liveVid = document.getElementById('iv-live-video');
+    liveVid.srcObject = ivStream;
+    ivMicTrack = ivStream.getAudioTracks()[0];
+    ivCamTrack = ivStream.getVideoTracks()[0];
+
+    // Re-attach audio meter to live screen
+    setupAudioMeter(ivStream, 'iv-live-mic');
+
+    showIvScreen('live');
+    document.getElementById('iv-live-title').textContent = ivRole + ' Interview';
+
+    // Build progress dots
+    const dots = document.getElementById('iv-progress-dots');
+    dots.innerHTML = ivQuestions.map((_, i) => `<div class="iv-dot" id="iv-dot-${i}"></div>`).join('');
+
+    startTimer();
+    showQuestion(0);
+  }
+
+  function showQuestion(idx) {
+    ivCurrentQ = idx;
+    const q = ivQuestions[idx];
+    document.getElementById('iv-q-counter').textContent = `Question ${idx + 1} of ${ivQuestions.length}`;
+    document.getElementById('iv-question-text').textContent = q;
+    document.getElementById('iv-ai-speaking').style.display = 'flex';
+
+    // Update progress dots
+    ivQuestions.forEach((_, i) => {
+      const dot = document.getElementById('iv-dot-' + i);
+      if (!dot) return;
+      dot.className = 'iv-dot' + (i < idx ? ' done' : i === idx ? ' active' : '');
+    });
+
+    // Update next/finish button
+    const nextBtn = document.getElementById('iv-btn-next');
+    nextBtn.textContent = idx === ivQuestions.length - 1 ? 'Finish Interview ✓' : 'Next Question →';
+
+    // Add question to transcript
+    addTranscriptEntry('q', q);
+
+    // Hide AI speaking indicator after 2s
+    setTimeout(() => {
+      const el = document.getElementById('iv-ai-speaking');
+      if (el) el.style.display = 'none';
+    }, 2000);
+
+    // Simulate speech recognition (placeholder — see note below)
+    simulateTranscription(idx);
+  }
+
+  function simulateTranscription(qIdx) {
+    // In production replace this with the Web Speech API block below.
+    // For now we add a placeholder "Your answer will appear here" entry.
+    setTimeout(() => {
+      addTranscriptEntry('a', '[ Your spoken answer will appear here as you speak ]');
+    }, 3000);
+  }
+
+  /* ── REAL SPEECH RECOGNITION (uncomment to enable) ──────────
+  let ivRecognition = null;
+  function startSpeechRecognition(qIdx) {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return;
+    ivRecognition = new SR();
+    ivRecognition.continuous = true;
+    ivRecognition.interimResults = true;
+    ivRecognition.lang = 'en-US';
+    let finalText = '';
+    ivRecognition.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) finalText += e.results[i][0].transcript + ' ';
+        else interim += e.results[i][0].transcript;
+      }
+      updateTranscriptAnswer(finalText + interim);
+    };
+    ivRecognition.start();
+  }
+  ── END SPEECH RECOGNITION ─────────────────────────────────── */
+
+  function addTranscriptEntry(type, text) {
+    ivTranscript.push({ type, text });
+    const panel = document.getElementById('iv-transcript');
+    if (!panel) return;
+    const div = document.createElement('div');
+    div.className = type === 'q' ? 'iv-transcript-q' : 'iv-transcript-a';
+    div.textContent = type === 'q' ? `Q${Math.ceil(ivTranscript.filter(t=>t.type==='q').length)}: ${text}` : text;
+    panel.appendChild(div);
+    panel.scrollTop = panel.scrollHeight;
+  }
+
+  function nextQuestion() {
+    if (ivCurrentQ < ivQuestions.length - 1) {
+      showQuestion(ivCurrentQ + 1);
+    } else {
+      finishInterview();
+    }
+  }
+
+  function finishInterview() {
+    stopTimer();
+    stopMedia();
+    showResults();
+  }
+
+  function endInterviewEarly() {
+    if (confirm('End the interview early? Your progress so far will be shown.')) {
+      finishInterview();
+    }
+  }
+
+  function showResults() {
+    showIvScreen('results');
+    document.getElementById('iv-results-subtitle').textContent =
+      `${ivRole} · ${ivQuestions.length} questions · ${formatTime(ivSeconds)}`;
+
+    // Score cards (simulated scoring)
+    const scores = [
+      { label: 'Communication', score: Math.floor(Math.random() * 15) + 75 },
+      { label: 'Relevance', score: Math.floor(Math.random() * 15) + 72 },
+      { label: 'Structure', score: Math.floor(Math.random() * 15) + 70 },
+    ];
+    document.getElementById('iv-score-cards').innerHTML = scores.map(s => `
+      <div class="stat">
+        <span class="stat-num" style="color:${s.score >= 85 ? '#10b981' : s.score >= 75 ? '#f59e0b' : '#D63B2A'};">${s.score}%</span>
+        <span class="stat-label">${s.label}</span>
+      </div>`).join('');
+
+    // Transcript in results
+    const rt = document.getElementById('iv-results-transcript');
+    rt.innerHTML = ivTranscript.map(t =>
+      `<div style="font-size:0.85rem;line-height:1.6;color:${t.type==='q'?'var(--muted)':'var(--text)'};padding-bottom:0.5rem;border-bottom:1px solid var(--border);margin-bottom:0.5rem;">
+        <strong style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;">${t.type==='q'?'Question':'Your Answer'}</strong><br>${t.text}
+      </div>`
+    ).join('');
+  }
+
+  function showAssessmentSelect() {
+    showIvScreen('select');
+  }
+
+  function cancelInterview() {
+    stopMedia();
+    showIvScreen('select');
+  }
+
+  function stopMedia() {
+    if (ivStream) { ivStream.getTracks().forEach(t => t.stop()); ivStream = null; }
+    if (ivAudioContext) { ivAudioContext.close(); ivAudioContext = null; ivAnalyser = null; }
+    stopTimer();
+  }
+
+  function toggleMic() {
+    if (!ivMicTrack) return;
+    ivMicEnabled = !ivMicEnabled;
+    ivMicTrack.enabled = ivMicEnabled;
+    const btn = document.getElementById('iv-btn-mic');
+    btn.style.background = ivMicEnabled ? 'rgba(255,255,255,0.08)' : 'rgba(214,59,42,0.3)';
+  }
+
+  function toggleCam() {
+    if (!ivCamTrack) return;
+    ivCamEnabled = !ivCamEnabled;
+    ivCamTrack.enabled = ivCamEnabled;
+    const btn = document.getElementById('iv-btn-cam');
+    btn.style.background = ivCamEnabled ? 'rgba(255,255,255,0.08)' : 'rgba(214,59,42,0.3)';
+  }
+
+  function startTimer() {
+    ivSeconds = 0;
+    clearInterval(ivTimerInterval);
+    ivTimerInterval = setInterval(() => {
+      ivSeconds++;
+      const el = document.getElementById('iv-timer');
+      if (el) el.textContent = formatTime(ivSeconds);
+    }, 1000);
+  }
+
+  function stopTimer() { clearInterval(ivTimerInterval); }
+
+  function formatTime(s) {
+    const m = Math.floor(s / 60);
+    return `${String(m).padStart(2,'0')}:${String(s % 60).padStart(2,'0')}`;
+  }
+
+  /* ══════════════════════════════════════════════
+     END VIDEO INTERVIEW ENGINE
+  ══════════════════════════════════════════════ */
 
   function showDatabase(tab) {
     show('database');
