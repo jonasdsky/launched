@@ -39,7 +39,9 @@
   gtag('config', 'G-XXXXXXXXXX');
 </script> -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -429,6 +431,46 @@
     .page-inner { padding: 2.5rem 1.25rem 5rem; }
     .card-row { flex-direction: column; }
   }
+  /* ── LOGO STRIP ── */
+  .logo-strip-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 2.4rem;
+  }
+  .logo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    opacity: 0.4;
+    transition: opacity 0.22s;
+    cursor: default;
+  }
+  .logo-item:hover { opacity: 0.85; }
+  .logo-item img {
+    height: 26px;
+    width: auto;
+    max-width: 100px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: filter 0.22s;
+  }
+  .logo-item:hover img { filter: grayscale(20%); }
+  .logo-fallback {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  /* ── RECRUITING CARDS ── */
+  @media (max-width: 600px) {
+    .recruit-card { grid-column: 1 / -1 !important; }
+    #dream-job-section > div:nth-child(4) { grid-template-columns: 1fr !important; }
+  }
   /* ── VIDEO INTERVIEW ── */
   @keyframes pulse-red { 0%,100%{opacity:1} 50%{opacity:0.3} }
   @keyframes bar1 { 0%,100%{height:4px} 50%{height:14px} }
@@ -455,6 +497,23 @@
   }
   .db-tab:hover { background: var(--surface); color: var(--text); }
   .db-tab-active { background: var(--surface) !important; color: var(--text) !important; box-shadow: 0 1px 4px rgba(20,20,40,0.08); font-weight: 500; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── LEAFLET OVERRIDES ── */
+  .leaflet-container { font-family: 'DM Sans', sans-serif !important; background: var(--surface) !important; }
+  .leaflet-popup-content-wrapper {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; box-shadow: 0 4px 20px rgba(20,20,40,0.10);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .leaflet-popup-tip { background: var(--surface); }
+  .leaflet-popup-content { margin: 12px 14px; }
+  .leaflet-popup-content h4 { font-size: 0.85rem; font-weight: 500; color: var(--text); margin: 0 0 3px; }
+  .leaflet-popup-content p  { font-size: 0.75rem; color: var(--muted); margin: 0; line-height: 1.5; }
+  .leaflet-popup-content .pop-count { display:inline-block; margin-top:6px; font-size:0.7rem; font-weight:500; color:var(--accent); background:rgba(214,59,42,0.08); padding:2px 8px; border-radius:100px; }
+  .leaflet-control-zoom a { border-radius: 8px !important; border-color: var(--border) !important; color: var(--text) !important; }
+  .leaflet-control-attribution { display: none; }
 
   /* ── MODAL ── */
   #modal-apply textarea { display:block; }
@@ -603,6 +662,29 @@
   <div style="width:100%; max-width:660px; display:flex; justify-content:center; opacity:0; animation:rise 0.7s 0.4s ease forwards; margin-bottom:2.5rem;">
     <button class="btn btn-dark" style="padding:0.65rem 1.6rem; font-size:0.95rem;" onclick="show('join')">Join Launched</button>
   </div>
+
+  <!-- ══ RECRUITING SPLIT ══ -->
+  <div style="width:100%; max-width:660px; opacity:0; animation:rise 0.7s 0.43s ease forwards; margin-bottom:2rem;">
+    <div style="text-align:center; margin-bottom:0.5rem;">
+      <span style="font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);">Recruiting Services</span>
+    </div>
+    <p style="font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--muted);text-align:center;margin-bottom:1.4rem;line-height:1.6;">Whether you're building a team or building your career — we connect you with what matters.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <button onclick="showHiringFlow()" style="background:var(--text);border:none;border-radius:16px;padding:1.6rem 1.3rem;cursor:pointer;text-align:left;transition:transform 0.18s,box-shadow 0.18s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 36px rgba(20,20,40,0.22)';" onmouseout="this.style.transform='none';this.style.boxShadow='none';">
+        <div style="font-size:1.5rem;margin-bottom:0.6rem;">🏢</div>
+        <div style="font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.4rem;">I'm Hiring</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.5;">Find exceptional GTM &amp; Engineering talent. AI-vetted, fast.</div>
+        <div style="margin-top:1rem;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.4);">Get started <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+      <button onclick="showCandidateFlow()" style="background:var(--surface);border:1.5px solid var(--border-md);border-radius:16px;padding:1.6rem 1.3rem;cursor:pointer;text-align:left;transition:transform 0.18s,box-shadow 0.18s,border-color 0.18s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 36px rgba(20,20,40,0.10)';this.style.borderColor='rgba(20,20,40,0.3)';" onmouseout="this.style.transform='none';this.style.boxShadow='none';this.style.borderColor='var(--border-md)';">
+        <div style="font-size:1.5rem;margin-bottom:0.6rem;">🚀</div>
+        <div style="font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;">I'm a Candidate</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--muted);line-height:1.5;">Get assessed, matched, and connected to world-class roles.</div>
+        <div style="margin-top:1rem;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--muted);">Start assessment <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </button>
+    </div>
+  </div>
+
   <div style="width:100%; max-width:660px; border-top:1px solid var(--border-md); margin-bottom:2.5rem; opacity:0; animation:rise 0.7s 0.45s ease forwards;"></div>
   <div class="nav-grid">
     <div class="span2">
@@ -643,9 +725,132 @@
     </button>
   </div>
 
-  <div style="width:100%; max-width:660px; border-top:1px solid var(--border-md); margin-top:2.5rem; margin-bottom:3.5rem; opacity:0; animation:rise 0.7s 0.6s ease forwards;"></div>
+  <div style="width:100%; max-width:660px; border-top:1px solid var(--border-md); margin-top:2.5rem; margin-bottom:0; opacity:0; animation:rise 0.7s 0.6s ease forwards;"></div>
 
-  <div style="width:100%; max-width:720px; text-align:left; opacity:0; animation:rise 0.7s 0.7s ease forwards; padding-bottom:5rem;">
+  <!-- ══ LOGO STRIP ══ -->
+  <div style="width:100%; max-width:860px; opacity:0; animation:rise 0.7s 0.62s ease forwards; margin:2.5rem 0 2.8rem; text-align:center;">
+    <p style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.3rem;opacity:0.7;">Founding team has worked with</p>
+    <div class="logo-strip-wrap" style="gap:0.5rem 2.2rem;">
+        <div class="logo-item" title="KKR"><img src="https://logo.clearbit.com/kkr.com" alt="KKR" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">KKR</span></div>
+        <div class="logo-item" title="BlackRock"><img src="https://logo.clearbit.com/blackrock.com" alt="BlackRock" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">BlackRock</span></div>
+        <div class="logo-item" title="S&amp;P Global"><img src="https://logo.clearbit.com/spglobal.com" alt="S&amp;P Global" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">S&amp;P Global</span></div>
+        <div class="logo-item" title="Vanguard"><img src="https://logo.clearbit.com/vanguard.com" alt="Vanguard" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">Vanguard</span></div>
+        <div class="logo-item" title="Invesco"><img src="https://logo.clearbit.com/invesco.com" alt="Invesco" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">Invesco</span></div>
+        <div class="logo-item" title="Accenture"><img src="https://logo.clearbit.com/accenture.com" alt="Accenture" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">Accenture</span></div>
+        <div class="logo-item" title="Block"><img src="https://logo.clearbit.com/block.xyz" alt="Block" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">Block</span></div>
+        <div class="logo-item" title="Momentum"><img src="https://logo.clearbit.com/momentum.io" alt="Momentum" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">Momentum</span></div>
+        <div class="logo-item" title="Deeto"><img src="https://logo.clearbit.com/deeto.ai" alt="Deeto" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/><span class="logo-fallback" style="display:none;">Deeto</span></div>
+    </div>
+  </div>
+
+<!-- ══ DESIGN YOUR DREAM JOB ══ -->
+  <div style="width:100%; max-width:680px; opacity:0; animation:rise 0.7s 0.68s ease forwards; margin-bottom:2.8rem;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem 2rem 1.8rem;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.35rem;">
+        <span style="font-size:1.1rem;">✨</span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);">New</span>
+      </div>
+      <h3 style="font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:400;margin-bottom:0.35rem;color:var(--text);">Design Your Dream Job</h3>
+      <p style="font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;">Tell us what your ideal role looks like — we'll match it against live openings right now.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div>
+          <label style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;color:var(--muted);display:block;margin-bottom:4px;">Role / Title</label>
+          <input id="dj-role" type="text" placeholder="e.g. Head of Sales, Engineer…" oninput="djLiveMatch()" style="width:100%;padding:0.6rem 0.9rem;border:1px solid var(--border-md);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.875rem;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='rgba(20,20,40,0.35)'" onblur="this.style.borderColor='var(--border-md)'">
+        </div>
+        <div>
+          <label style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;color:var(--muted);display:block;margin-bottom:4px;">Department</label>
+          <select id="dj-dept" onchange="djLiveMatch()" style="width:100%;padding:0.6rem 0.9rem;border:1px solid var(--border-md);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.875rem;background:var(--bg);color:var(--text);outline:none;cursor:pointer;">
+            <option value="">Any department</option>
+            <option value="GTM">GTM / Sales</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Leadership">Leadership</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Product">Product</option>
+            <option value="Operations">Operations</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;color:var(--muted);display:block;margin-bottom:4px;">Minimum Compensation</label>
+          <select id="dj-comp" onchange="djLiveMatch()" style="width:100%;padding:0.6rem 0.9rem;border:1px solid var(--border-md);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.875rem;background:var(--bg);color:var(--text);outline:none;cursor:pointer;">
+            <option value="0">Any compensation</option>
+            <option value="80">$80k+</option>
+            <option value="120">$120k+</option>
+            <option value="160">$160k+</option>
+            <option value="200">$200k+</option>
+            <option value="300">$300k+</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;color:var(--muted);display:block;margin-bottom:4px;">Work Style</label>
+          <select id="dj-style" onchange="djLiveMatch()" style="width:100%;padding:0.6rem 0.9rem;border:1px solid var(--border-md);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.875rem;background:var(--bg);color:var(--text);outline:none;cursor:pointer;">
+            <option value="">Any style</option>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="On-site">On-site</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;color:var(--muted);display:block;margin-bottom:4px;">Location</label>
+        <select id="dj-loc" onchange="djLiveMatch()" style="width:100%;padding:0.6rem 0.9rem;border:1px solid var(--border-md);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.875rem;background:var(--bg);color:var(--text);outline:none;cursor:pointer;">
+          <option value="">Any location</option>
+          <option value="New York">New York, NY</option>
+          <option value="San Francisco">San Francisco, CA</option>
+          <option value="Remote">Remote</option>
+          <option value="Boston">Boston, MA</option>
+          <option value="Austin">Austin, TX</option>
+        </select>
+      </div>
+
+      <!-- Live match results -->
+      <div id="dj-results" style="display:none;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span id="dj-match-label" style="font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:var(--text);"></span>
+          <button onclick="djClearResults()" style="font-size:0.72rem;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif;">Clear</button>
+        </div>
+        <div id="dj-match-list" style="display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;"></div>
+      </div>
+
+      <div id="dj-no-results" style="display:none;padding:1rem;background:rgba(20,20,40,0.03);border-radius:10px;text-align:center;margin-bottom:14px;">
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.3rem;">No exact matches right now.</p>
+        <p style="font-size:0.8rem;color:var(--muted);">Leave your details below and we'll reach out when something fits.</p>
+      </div>
+
+      <div id="dj-submit-area" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <button onclick="submitDreamJob()" class="btn btn-dark" style="padding:0.65rem 1.6rem;font-size:0.875rem;border:none;">Notify Me of Matches ✦</button>
+        <span style="font-size:0.75rem;color:var(--muted);">We'll alert you when new matching roles land.</span>
+      </div>
+      <div id="dj-success" style="display:none;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;">
+        <div style="font-size:0.9rem;font-weight:500;color:#10b981;margin-bottom:2px;">You're on the list ✓</div>
+        <div style="font-size:0.8rem;color:var(--muted);">We'll reach out within 24 hours when matching roles are available.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ JOB MAP ══ -->
+  <div style="width:100%; max-width:860px; opacity:0; animation:rise 0.7s 0.72s ease forwards; margin-bottom:3.5rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+      <div>
+        <p style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.25rem;">Live Opportunities</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--muted);" id="map-subtitle">Loading roles…</p>
+      </div>
+      <button class="btn btn-ghost" style="font-size:0.8rem;" onclick="showDatabase('opportunities')">View all roles →</button>
+    </div>
+    <div style="position:relative;width:100%;height:380px;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+      <div id="job-map" style="width:100%;height:100%;"></div>
+      <div id="map-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border-radius:18px;">
+        <div style="text-align:center;">
+          <div style="width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 0.75rem;"></div>
+          <p style="font-size:0.8rem;color:var(--muted);font-family:'DM Sans',sans-serif;">Loading job locations…</p>
+        </div>
+      </div>
+    </div>
+    <div id="map-city-pills" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:0.85rem;"></div>
+  </div>
+
+    <div style="width:100%; max-width:720px; text-align:left; opacity:0; animation:rise 0.7s 0.7s ease forwards; padding-bottom:5rem;">
     <p style="font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:1.5rem;">A Founder Manifesto</p>
 
     <p style="font-family:'DM Serif Display',serif; font-size:1.5rem; font-weight:400; line-height:1.4; color:var(--text); margin-bottom:2rem;">We believe human potential is being wasted.</p>
@@ -719,7 +924,7 @@
     </div>
   </div>
 
-  <!-- SCREEN 2: Camera Check -->
+    <!-- SCREEN 2: Camera Check -->
   <div id="iv-screen-check" style="display:none;min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--nav-h) + 2rem) 2rem 3rem;">
     <div style="width:100%;max-width:560px;">
       <button class="back" onclick="cancelInterview()" style="margin-bottom:2rem;">
@@ -1358,6 +1563,8 @@
     home.style.display = 'flex';
     footer.style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'instant' });
+    // Invalidate map size after display:flex reflow
+    if (jobMap) setTimeout(() => { jobMap.invalidateSize(); renderMapMarkers(); }, 150);
   }
 
   function sel(btn) {
@@ -1367,8 +1574,181 @@
   }
 
   /* ══════════════════════════════════════════════
-     VIDEO INTERVIEW ENGINE
+     JOB MAP ENGINE
   ══════════════════════════════════════════════ */
+
+  // City coordinates — covers all locations in OPPS + live data
+  const CITY_COORDS = {
+    'New York, NY':       [40.7128, -74.0060],
+    'San Francisco, CA':  [37.7749, -122.4194],
+    'Remote':             [39.5, -98.35],   // center of US
+    'Boston, MA':         [42.3601, -71.0589],
+    'Austin, TX':         [30.2672, -97.7431],
+    'Seattle, WA':        [47.6062, -122.3321],
+    'Chicago, IL':        [41.8781, -87.6298],
+    'Los Angeles, CA':    [34.0522, -118.2437],
+    'London, UK':         [51.5074, -0.1278],
+    'Toronto, Canada':    [43.6532, -79.3832],
+    'Toronto / Remote':   [43.6532, -79.3832],
+  };
+
+  let jobMap = null;
+  let mapInitialized = false;
+
+  function initJobMap() {
+    if (mapInitialized) return;
+    mapInitialized = true;
+
+    const container = document.getElementById('job-map');
+    if (!container) return;
+
+    // Init Leaflet map
+    jobMap = L.map('job-map', {
+      center: [39.5, -98.35],
+      zoom: 4,
+      zoomControl: true,
+      scrollWheelZoom: false,
+      attributionControl: false,
+    });
+
+    // Light tile layer — Carto Positron (no API key)
+    const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+    }).addTo(jobMap);
+
+    // Force size recalculation once tiles start loading
+    tileLayer.on('loading', () => jobMap.invalidateSize());
+    tileLayer.on('load', () => jobMap.invalidateSize());
+
+    // Belt-and-suspenders: invalidate after short delays
+    setTimeout(() => jobMap.invalidateSize(), 100);
+    setTimeout(() => jobMap.invalidateSize(), 500);
+    setTimeout(() => jobMap.invalidateSize(), 1000);
+
+    renderMapMarkers();
+  }
+
+  function renderMapMarkers() {
+    if (!jobMap) return;
+
+    // Group OPPS by city
+    const cityGroups = {};
+    OPPS.forEach(job => {
+      const city = job.loc || 'Remote';
+      if (!cityGroups[city]) cityGroups[city] = [];
+      cityGroups[city].push(job);
+    });
+
+    // Clear existing markers
+    jobMap.eachLayer(layer => {
+      if (layer instanceof L.CircleMarker || layer instanceof L.Marker) {
+        jobMap.removeLayer(layer);
+      }
+    });
+
+    const cities = Object.keys(cityGroups);
+    const maxCount = Math.max(...cities.map(c => cityGroups[c].length));
+
+    cities.forEach(city => {
+      const coords = CITY_COORDS[city];
+      if (!coords) return;
+
+      const jobs = cityGroups[city];
+      const count = jobs.length;
+      const isRemote = city === 'Remote';
+
+      // Scale radius 10–28px based on job count
+      const radius = isRemote ? 8 : Math.max(10, Math.min(28, 10 + (count / maxCount) * 18));
+
+      const marker = L.circleMarker(coords, {
+        radius,
+        fillColor: isRemote ? '#667085' : '#D63B2A',
+        fillOpacity: isRemote ? 0.25 : 0.85,
+        color: isRemote ? '#667085' : '#D63B2A',
+        weight: isRemote ? 1 : 2,
+        opacity: isRemote ? 0.4 : 1,
+      }).addTo(jobMap);
+
+      // Build popup content
+      const topRoles = jobs.slice(0, 4).map(j =>
+        `<div style="padding:2px 0;border-bottom:1px solid rgba(20,20,40,0.06);margin-bottom:3px;">
+          <span style="font-size:0.72rem;color:var(--text);">${j.role}</span>
+          <span style="float:right;font-size:0.7rem;color:var(--muted);">${j.co}</span>
+        </div>`
+      ).join('');
+      const more = count > 4 ? `<p style="margin-top:5px;font-size:0.7rem;color:var(--muted);">+${count - 4} more roles</p>` : '';
+
+      marker.bindPopup(`
+        <h4>${isRemote ? '🌐 Remote' : city}</h4>
+        <div style="margin:8px 0 4px;">${topRoles}</div>
+        ${more}
+        <span class="pop-count">${count} ${count === 1 ? 'role' : 'roles'}</span>
+      `, { maxWidth: 240 });
+
+      marker.on('mouseover', function() { this.openPopup(); });
+    });
+
+    // Update subtitle
+    const total = OPPS.length;
+    const cityCount = cities.filter(c => c !== 'Remote' && CITY_COORDS[c]).length;
+    const subtitle = document.getElementById('map-subtitle');
+    if (subtitle) subtitle.textContent = `${total} live roles across ${cityCount} cities`;
+
+    // City pills
+    const pillsEl = document.getElementById('map-city-pills');
+    if (pillsEl) {
+      const sorted = cities
+        .filter(c => c !== 'Remote' && CITY_COORDS[c])
+        .sort((a, b) => cityGroups[b].length - cityGroups[a].length)
+        .slice(0, 6);
+      pillsEl.innerHTML = sorted.map(city => `
+        <button onclick="flyToCity('${city}')" style="
+          font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:400;
+          padding:0.28rem 0.85rem; border-radius:100px;
+          border:1px solid var(--border-md); background:var(--surface);
+          color:var(--muted); cursor:pointer; transition:all 0.15s;
+          display:inline-flex; align-items:center; gap:5px;"
+          onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';"
+          onmouseout="this.style.borderColor='var(--border-md)';this.style.color='var(--muted)';"
+        >
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
+          ${city} <span style="opacity:0.6;">(${cityGroups[city].length})</span>
+        </button>
+      `).join('');
+    }
+
+    // Hide loading overlay
+    const loading = document.getElementById('map-loading');
+    if (loading) loading.style.display = 'none';
+  }
+
+  function flyToCity(city) {
+    const coords = CITY_COORDS[city];
+    if (!coords || !jobMap) return;
+    jobMap.flyTo(coords, 10, { duration: 1.2 });
+  }
+
+  // Initialize map when home page is visible
+  // Observe when #job-map enters the viewport
+  function setupMapObserver() {
+    // Wait for full page render before initializing so Leaflet
+    // can measure the container dimensions correctly
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        initJobMap();
+        // invalidateSize forces Leaflet to recalculate after CSS animations
+        if (jobMap) setTimeout(() => { jobMap.invalidateSize(); }, 400);
+      }, 200);
+    });
+  }
+
+  // Re-render markers after live jobs load
+  const _origLoadAllJobs = typeof loadAllJobs === 'function' ? loadAllJobs : null;
+
+  /* ══════════════════════════════════════════════
+     END JOB MAP ENGINE
+  ══════════════════════════════════════════════ */
+
   const IV_QUESTIONS = {
     'Account Executive': [
       "Walk me through your most successful enterprise deal. What made it work?",
@@ -1766,6 +2146,186 @@
      END VIDEO INTERVIEW ENGINE
   ══════════════════════════════════════════════ */
 
+
+  /* ── RECRUITING FLOWS ── */
+  function showHiringFlow() {
+    show('join');
+    setTimeout(() => {
+      const h = document.querySelector('#page-join h2');
+      if (h) h.textContent = 'Find Exceptional Talent';
+      const sub = document.querySelector('#page-join .page-sub');
+      if (sub) sub.textContent = "Tell us about your hiring needs and we'll connect you with vetted candidates fast.";
+    }, 50);
+  }
+
+  function showCandidateFlow() {
+    show('assessment');
+  }
+
+  /* ══════════════════════════════════════════════
+     DREAM JOB MATCHER
+  ══════════════════════════════════════════════ */
+
+  // Map form department values → OPPS dept strings
+  const DJ_DEPT_MAP = {
+    'GTM':         ['GTM'],
+    'Engineering': ['Engineering'],
+    'Leadership':  ['Leadership', 'Operations'],
+    'Marketing':   ['Marketing'],
+    'Product':     ['Product'],
+    'Operations':  ['Operations'],
+  };
+
+  // Map form industry tags → OPPS tags
+  const DJ_INDUSTRY_MAP = {
+    'AI / Technology':  ['AI', 'ML', 'Dev Tools', 'SaaS'],
+    'Finance & Fintech': ['Fintech', 'Finance'],
+    'Healthcare':        ['Healthcare'],
+    'Defense':           ['Defense'],
+    'Education':         ['Education'],
+    'Manufacturing':     ['Manufacturing'],
+    'Energy':            ['Energy'],
+    'Consulting':        ['Consulting', 'Enterprise'],
+  };
+
+  let djDebounceTimer = null;
+
+  function djLiveMatch() {
+    clearTimeout(djDebounceTimer);
+    djDebounceTimer = setTimeout(() => _djRunMatch(), 180);
+  }
+
+  function _djRunMatch() {
+    const roleQ   = (document.getElementById('dj-role')?.value || '').toLowerCase().trim();
+    const dept    = document.getElementById('dj-dept')?.value || '';
+    const compMin = parseInt(document.getElementById('dj-comp')?.value || '0', 10);
+    const style   = document.getElementById('dj-style')?.value || '';
+    const locQ    = document.getElementById('dj-loc')?.value || '';
+
+    // Need at least one signal
+    if (!roleQ && !dept && !compMin && !style && !locQ) {
+      document.getElementById('dj-results').style.display = 'none';
+      document.getElementById('dj-no-results').style.display = 'none';
+      return;
+    }
+
+    // Score every job
+    const scored = OPPS.map(job => {
+      let score = 0;
+
+      // Role title match — highest weight
+      if (roleQ) {
+        const jobTitle = (job.role || '').toLowerCase();
+        const jobDept  = (job.dept || '').toLowerCase();
+        if (jobTitle.includes(roleQ))          score += 40;
+        else if (roleQ.split(' ').some(w => w.length > 2 && jobTitle.includes(w))) score += 20;
+        if (jobDept.includes(roleQ))           score += 10;
+      }
+
+      // Department match
+      if (dept) {
+        const allowed = DJ_DEPT_MAP[dept] || [dept];
+        if (allowed.includes(job.dept)) score += 30;
+        else score -= 15; // penalise wrong dept if dept was specified
+      }
+
+      // Compensation match — compMin is in $k
+      if (compMin > 0) {
+        const jobMin = job.compMin || 0;
+        if (jobMin >= compMin)               score += 20;
+        else if (jobMin >= compMin - 30)     score += 8;
+        else                                 score -= 10;
+      }
+
+      // Work style match
+      if (style) {
+        if (job.type === style)              score += 20;
+        else                                 score -= 10;
+      }
+
+      // Location match
+      if (locQ) {
+        const jobLoc = (job.loc || '').toLowerCase();
+        if (jobLoc.includes(locQ.toLowerCase())) score += 20;
+        else if (locQ === 'Remote' && job.type === 'Remote') score += 15;
+        else                                 score -= 5;
+      }
+
+      return { job, score };
+    });
+
+    // Filter score > 0 and sort descending
+    const matches = scored
+      .filter(s => s.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 6)
+      .map(s => s.job);
+
+    const resultsEl  = document.getElementById('dj-results');
+    const noResultEl = document.getElementById('dj-no-results');
+    const listEl     = document.getElementById('dj-match-list');
+    const labelEl    = document.getElementById('dj-match-label');
+
+    if (matches.length === 0) {
+      resultsEl.style.display = 'none';
+      noResultEl.style.display = 'block';
+      return;
+    }
+
+    noResultEl.style.display = 'none';
+    resultsEl.style.display = 'block';
+    labelEl.textContent = matches.length === 1
+      ? '1 live match found'
+      : `${matches.length} live matches found`;
+
+    listEl.innerHTML = matches.map((job, i) => {
+      const oi = OPPS.indexOf(job);
+      const applyAction = job.applyUrl
+        ? `window.open('${job.applyUrl}','_blank')`
+        : `openApply(${oi})`;
+      const matchPct = Math.min(99, 60 + Math.round(((6 - i) / 6) * 39));
+      return `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0.7rem 0.9rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(20,20,40,0.25)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:2px;">
+              <span style="width:7px;height:7px;border-radius:50%;background:${job.color || '#D63B2A'};flex-shrink:0;"></span>
+              <span style="font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${job.role}</span>
+            </div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--muted);">${job.co} · ${job.loc} · ${job.comp}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;color:#10b981;background:rgba(16,185,129,0.1);padding:2px 7px;border-radius:100px;">${matchPct}% match</span>
+            <button onclick="${applyAction}" style="font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:0.3rem 0.75rem;background:var(--text);color:#fff;border:none;border-radius:100px;cursor:pointer;white-space:nowrap;">Apply</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function djClearResults() {
+    document.getElementById('dj-role').value = '';
+    document.getElementById('dj-dept').value = '';
+    document.getElementById('dj-comp').value = '0';
+    document.getElementById('dj-style').value = '';
+    document.getElementById('dj-loc').value = '';
+    document.getElementById('dj-results').style.display = 'none';
+    document.getElementById('dj-no-results').style.display = 'none';
+  }
+
+  function submitDreamJob() {
+    // Run a final match first to show results if any
+    _djRunMatch();
+    // Then show the success notification
+    setTimeout(() => {
+      document.getElementById('dj-submit-area').style.display = 'none';
+      document.getElementById('dj-success').style.display = 'block';
+    }, 300);
+  }
+
+  /* ══════════════════════════════════════════════
+     END DREAM JOB MATCHER
+  ══════════════════════════════════════════════ */
+  /* ── END RECRUITING FLOWS ── */
+
   function showDatabase(tab) {
     show('database');
     setTimeout(() => switchTab(tab), 50);
@@ -2157,6 +2717,11 @@
 
   window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Init map observer on load
+  document.addEventListener('DOMContentLoaded', () => {
+    setupMapObserver();
   });
 
 </script>
